@@ -1,13 +1,13 @@
 {
-  "itemGroup.shsbm": "Example Mod Tab",
-  "block.shsbm.example_block": "Example Block",
-  "item.shsbm.example_item": "Example Item",
+  "itemGroup.shiny_sb": "Example Mod Tab",
+  "block.shiny_sb.example_block": "Example Block",
+  "item.shiny_sb.example_item": "Example Item",
 
-  "shsbm.configuration.title": "Shiny's Hypixel SB remake Configs",
-  "shsbm.configuration.section.shsbm.common.toml": "Shiny's Hypixel SB remake Configs",
-  "shsbm.configuration.section.shsbm.common.toml.title": "Shiny's Hypixel SB remake Configs",
-  "shsbm.configuration.items": "Item List",
-  "shsbm.configuration.logDirtBlock": "Log Dirt Block",
-  "shsbm.configuration.magicNumberIntroduction": "Magic Number Text",
-  "shsbm.configuration.magicNumber": "Magic Number"
+  "shiny_sb.configuration.title": "Shiny's Hypixel SB remake Configs",
+  "shiny_sb.configuration.section.shiny_sb.common.toml": "Shiny's Hypixel SB remake Configs",
+  "shiny_sb.configuration.section.shiny_sb.common.toml.title": "Shiny's Hypixel SB remake Configs",
+  "shiny_sb.configuration.items": "Item List",
+  "shiny_sb.configuration.logDirtBlock": "Log Dirt Block",
+  "shiny_sb.configuration.magicNumberIntroduction": "Magic Number Text",
+  "shiny_sb.configuration.magicNumber": "Magic Number"
 }
