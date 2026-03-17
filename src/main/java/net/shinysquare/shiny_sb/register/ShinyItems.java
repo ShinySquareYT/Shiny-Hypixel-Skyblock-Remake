@@ -1,4 +1,4 @@
-package net.shinysquare.shiny_sb.item;
+package net.shinysquare.shiny_sb.register;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;

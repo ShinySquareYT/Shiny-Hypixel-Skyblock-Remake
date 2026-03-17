@@ -1,4 +1,4 @@
-package net.shinysquare.shiny_sb.block;
+package net.shinysquare.shiny_sb.register;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.Block;
