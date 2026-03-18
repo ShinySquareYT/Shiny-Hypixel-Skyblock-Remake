@@ -9,8 +9,7 @@ import static net.shinysquare.shiny_sb.ShinysHypixelSBremake.REG;
 
 @SuppressWarnings("unused")
 public class ShinyItems {
-    public static final ItemEntry<Item> TestItem = REG.item("testitem", Item::new).register();
-    public static final BlockEntry<Block> TestBlock = REG.block("testblock", Block::new).register();
+    public static final ItemEntry<Item> TESTITEM = REG.item("testitem", Item::new).register();
     public static void register() {
     }
 }
