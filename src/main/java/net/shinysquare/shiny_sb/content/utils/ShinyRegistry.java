@@ -11,9 +11,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.shinysquare.shiny_sb.ShinysHypixelSBremake;
+import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
+
 import static net.minecraft.core.registries.Registries.*;
-import static net.shinysquare.shiny_sb.ShinysHypixelSBremake.MOD_ID;
+import static net.shinysquare.shiny_sb.ShinysHypixelSBRemake.MOD_ID;
 
 @SuppressWarnings({"unused", "removal"})
 public record ShinyRegistry(String modID) {
@@ -41,26 +42,26 @@ public record ShinyRegistry(String modID) {
     public DeferredRegister<Level> dimensions() {return DIMENSIONS;}
 
     public void register(IEventBus bus) {
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Data Components...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Data Components...");
         DATA_COMPONENTS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Creative Tabs...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Creative Tabs...");
         CREATIVE_MODE_TABS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Damage Types...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Damage Types...");
         DAMAGES.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Mob Effects...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Mob Effects...");
         MOB_EFFECTS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Particles...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Particles...");
         PARTICLES.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Recipes Serializers...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Recipes Serializers...");
         RECIPE_SERIALIZERS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Recipes...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Recipes...");
         RECIPES.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Menus...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Menus...");
         MENUS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Sounds...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Sounds...");
         SOUNDS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Dimensions...");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Dimensions...");
         DIMENSIONS.register(bus);
-        System.out.println("Registering " + ShinysHypixelSBremake.NAME + " Done");
+        System.out.println("Registering " + ShinysHypixelSBRemake.NAME + " Done");
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-import static net.shinysquare.shiny_sb.ShinysHypixelSBremake.*;
+import static net.shinysquare.shiny_sb.ShinysHypixelSBRemake.*;
 
 @SuppressWarnings("all")
 public class ShinyCreativeModeTabs {

@@ -1,11 +1,9 @@
 package net.shinysquare.shiny_sb.register;
 
-import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
 
-import static net.shinysquare.shiny_sb.ShinysHypixelSBremake.REG;
+import static net.shinysquare.shiny_sb.ShinysHypixelSBRemake.REG;
 
 @SuppressWarnings("unused")
 public class ShinyItems {
