@@ -19,7 +19,6 @@ import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.CommonColors;
-import org.joml.Matrix3x2fStack;
 
 public class EditBarWidget extends AbstractContainerWidget {
 
@@ -41,35 +40,35 @@ public class EditBarWidget extends AbstractContainerWidget {
         Font textRenderer = Minecraft.getInstance().font;
         nameWidget = new StringWidget(Component.empty(), textRenderer);
 
-        MutableComponent translatable = Component.translatable("shsbm.bars.config.icon");
+        MutableComponent translatable = Component.translatable("shiny_sb.bars.config.icon");
         iconOption = new EnumCyclingOption<>(0, 11, getWidth(), translatable, StatusBar.IconPosition.class);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + iconOption.getLongestOptionWidth() + 10);
 
-        translatable = Component.translatable("shsbm.bars.config.text");
+        translatable = Component.translatable("shiny_sb.bars.config.text");
         textOption = new EnumCyclingOption<>(0, 22, getWidth(), translatable, StatusBar.TextPosition.class);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + textOption.getLongestOptionWidth() + 10);
 
-        translatable = Component.translatable("shsbm.bars.config.showMax");
+        translatable = Component.translatable("shiny_sb.bars.config.showMax");
         showMaxOption = new BooleanOption(0, 33, getWidth(), translatable);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
 
-        translatable = Component.translatable("shsbm.bars.config.showOverflow");
+        translatable = Component.translatable("shiny_sb.bars.config.showOverflow");
         showOverflowOption = new BooleanOption(0, 44, getWidth(), translatable);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
 
-        translatable = Component.translatable("shsbm.bars.config.mainColor");
+        translatable = Component.translatable("shiny_sb.bars.config.mainColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         color1 = new ColorOption(0, 55, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shsbm.bars.config.overflowColor");
+        translatable = Component.translatable("shiny_sb.bars.config.overflowColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         color2 = new ColorOption(0, 66, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shsbm.bars.config.textColor");
+        translatable = Component.translatable("shiny_sb.bars.config.textColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         textColor = new ColorOption(0, 77, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shsbm.bars.config.hide");
+        translatable = Component.translatable("shiny_sb.bars.config.hide");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         hideOption = new RunnableOption(0, 88, getWidth(), translatable);
 

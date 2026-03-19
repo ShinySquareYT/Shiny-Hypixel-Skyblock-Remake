@@ -10,7 +10,7 @@
   "shsbm.bars.config.speed": "Speed",
   "shsbm.bars.config.air": "Air",
 
-  "shsbm.bars.config.icon": "Icon",
+  "shiny_sb.bars.config.icon": "Icon",
   "shsbm.bars.config.text": "Text",
   "shsbm.bars.config.showMax": "Show Max",
   "shsbm.bars.config.showOverflow": "Show Overflow",

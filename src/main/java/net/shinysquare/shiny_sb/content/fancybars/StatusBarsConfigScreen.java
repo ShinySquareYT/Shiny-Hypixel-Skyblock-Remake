@@ -292,9 +292,9 @@ public class StatusBarsConfigScreen extends Screen {
         this.addRenderableWidget(Button.builder(
                         Component.literal("?"),
                         button -> minecraft.setScreen(
-                                new PopupScreen.Builder(this, Component.translatable("shsbm.bars.config.explanationTitle"))
+                                new PopupScreen.Builder(this, Component.translatable("shiny_sb.bars.config.explanationTitle"))
                                         .addButton(Component.translatable("gui.ok"), PopupScreen::onClose)
-                                        .setMessage(Component.translatable("shsbm.bars.config.explanation"))
+                                        .setMessage(Component.translatable("shiny_sb.bars.config.explanation"))
                                         .build()))
                 .bounds(width - 20, (height - 15) / 2, 15, 15)
                 .build());

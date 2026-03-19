@@ -65,6 +65,7 @@ public class FancyStatusBars {
     public static BarPositioner barPositioner = new BarPositioner();
     public static Map<StatusBarType, StatusBar> statusBars = new EnumMap<>(StatusBarType.class);
     private static boolean updatePositionsNextFrame;
+    private static boolean hasUpdatedPositions = false;
 
     public static boolean isHealthFancyBarEnabled()     { return isBarEnabled(StatusBarType.HEALTH); }
     public static boolean isExperienceFancyBarEnabled() { return isBarEnabled(StatusBarType.EXPERIENCE); }
@@ -106,6 +107,7 @@ public class FancyStatusBars {
                         }
                     }
                     placeBarsInPositioner();
+                    LOGGER.info("[shsbm] Bars placed, configLoaded = true");
                     configLoaded = true;
                 })
                 .exceptionally(t -> { LOGGER.error("[shsbm] Failed reading status bars config", t); return null; });
@@ -121,8 +123,13 @@ public class FancyStatusBars {
      */
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.HOTBAR, HUD_LAYER,
-                (guiGraphics, deltaTracker) -> render(guiGraphics, Minecraft.getInstance()));
+        event.registerAbove(VanillaGuiLayers.HOTBAR, HUD_LAYER, (guiGraphics, deltaTracker) -> {
+            if (configLoaded && !hasUpdatedPositions) {
+                updatePositions(true);
+                hasUpdatedPositions = true;
+            }
+            render(guiGraphics, Minecraft.getInstance());
+        });
     }
 
     // ── NEOFORGE BUS ─────────────────────────────────────────────────────────

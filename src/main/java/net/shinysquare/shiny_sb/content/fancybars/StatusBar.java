@@ -4,9 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.shinysquare.shiny_sb.Config;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
-import net.shinysquare.shiny_sb.config.ShsbmConfigManager;
-import net.shinysquare.shiny_sb.config.UIAndVisualsConfig;
 import net.shinysquare.shiny_sb.content.utils.Utils;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -298,7 +297,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         LEFT, RIGHT, OFF;
         @Override public String getSerializedName() { return name(); }
         @Override public String toString() {
-            return I18n.get("shsbm.bars.config.commonPosition." + name());
+            return I18n.get("shiny_sb.bars.config.commonPosition." + name());
         }
     }
 
@@ -307,8 +306,8 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         @Override public String getSerializedName() { return name(); }
         @Override public String toString() {
             if (this == CENTER || this == BAR_CENTER)
-                return I18n.get("shsbm.bars.config.textPosition." + name());
-            return I18n.get("shsbm.bars.config.commonPosition." + name());
+                return I18n.get("shiny_sb.bars.config.textPosition." + name());
+            return I18n.get("shiny_sb.bars.config.commonPosition." + name());
         }
     }
 
@@ -392,8 +391,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         protected void drawBarFill(GuiGraphics context, int barX, int barWidth) {
             if (hasOverflow() && overflowFill > 0) {
                 if (overflowFill > fill
-                        && ShsbmConfigManager.get().uiAndVisuals.bars.intelligenceDisplay
-                            == UIAndVisualsConfig.IntelligenceDisplay.IN_FRONT) {
+                        && Config.INTELLIGENCE_DISPLAY.get() == Config.IntelligenceDisplay.IN_FRONT) {
                     renderNineSliceColored(context, BAR_FILL, barX + 1, getY() + 2,
                             (int) ((barWidth - 2) * Math.min(overflowFill, 1)), 5, transparency(getColors()[1].getRGB()));
                     renderNineSliceColored(context, BAR_FILL, barX + 1, getY() + 2,

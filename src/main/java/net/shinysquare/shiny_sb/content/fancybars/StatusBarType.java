@@ -10,32 +10,32 @@ public enum StatusBarType implements StringRepresentable {
     HEALTH("health", BarPositioner.BarAnchor.HOTBAR_TOP, 0,
             new Color[]{new Color(255, 0, 0), new Color(255, 220, 0)},
             true, true, new Color(255, 85, 85),
-            Component.translatable("shsbm.bars.config.health")),
+            Component.translatable("shiny_sb.bars.config.health")),
 
     INTELLIGENCE("intelligence", BarPositioner.BarAnchor.HOTBAR_TOP, 0,
             new Color[]{new Color(0, 255, 255), new Color(180, 0, 255)},
             true, true, new Color(85, 255, 255),
-            Component.translatable("shsbm.bars.config.intelligence")),
+            Component.translatable("shiny_sb.bars.config.intelligence")),
 
     DEFENSE("defense", BarPositioner.BarAnchor.HOTBAR_RIGHT, 0,
             new Color[]{new Color(255, 255, 255)},
             false, false, new Color(185, 185, 185),
-            Component.translatable("shsbm.bars.config.defense")),
+            Component.translatable("shiny_sb.bars.config.defense")),
 
     EXPERIENCE("experience", BarPositioner.BarAnchor.HOTBAR_TOP, 1,
             new Color[]{new Color(100, 230, 70)},
             false, false, new Color(128, 255, 32),
-            Component.translatable("shsbm.bars.config.experience")),
+            Component.translatable("shiny_sb.bars.config.experience")),
 
     SPEED("speed", BarPositioner.BarAnchor.HOTBAR_RIGHT, 0,
             new Color[]{new Color(255, 255, 255)},
             false, true, new Color(185, 185, 185),
-            Component.translatable("shsbm.bars.config.speed")),
+            Component.translatable("shiny_sb.bars.config.speed")),
 
     AIR("air", BarPositioner.BarAnchor.HOTBAR_RIGHT, 1,
             new Color[]{new Color(135, 206, 250)},
             false, true, new Color(150, 230, 255),
-            Component.translatable("shsbm.bars.config.air"));
+            Component.translatable("shiny_sb.bars.config.air"));
 
     private final String id;
     private final BarPositioner.BarAnchor defaultAnchor;

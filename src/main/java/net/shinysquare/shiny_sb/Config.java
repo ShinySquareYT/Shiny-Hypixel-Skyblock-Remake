@@ -1,32 +1,33 @@
 package net.shinysquare.shiny_sb;
 
-import java.util.List;
-
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    public enum IntelligenceDisplay { IN_FRONT, ACCURATE }
 
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.BooleanValue ENABLE_BARS = BUILDER
+            .comment("Enable fancy status bars (replaces vanilla health/food/XP bars)")
+            .define("enableBars", true);
 
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    public static final ModConfigSpec.BooleanValue ENABLE_BARS_RIFT = BUILDER
+            .comment("Show fancy bars while inside The Rift dimension")
+            .define("enableBarsRift", true);
 
-    // a list of strings that are treated as resource locations for items
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
+    public static final ModConfigSpec.BooleanValue ENABLE_VANILLA_MANA_BAR = BUILDER
+            .comment("Show vanilla notch-style mana bar when fancy bars are disabled")
+            .define("enableVanillaStyleManaBar", false);
+
+    public static final ModConfigSpec.BooleanValue RIFT_HEALTH_HP = BUILDER
+            .comment("In The Rift, display health as full HP (true) or half-hearts (false)")
+            .define("riftHealthHP", true);
+
+    public static final ModConfigSpec.EnumValue<IntelligenceDisplay> INTELLIGENCE_DISPLAY = BUILDER
+            .comment("How overflow mana is shown. IN_FRONT: renders on top. ACCURATE: proportional width.")
+            .defineEnum("intelligenceDisplay", IntelligenceDisplay.IN_FRONT);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 

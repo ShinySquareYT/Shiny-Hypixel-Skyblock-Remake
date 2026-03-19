@@ -1,8 +1,8 @@
 package net.shinysquare.shiny_sb.content.fancybars;
 
 import net.minecraft.Util;
+import net.shinysquare.shiny_sb.Config;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
-import net.shinysquare.shiny_sb.config.ShsbmConfigManager;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 
 import net.minecraft.client.Minecraft;
@@ -91,8 +91,7 @@ public class VanillaStyleManaBar {
     private static boolean isEnabled() {
         if (Minecraft.getInstance().level == null) return false;
         // Vanilla-style bar only shows when the player has turned off fancy bars
-        return ShsbmConfigManager.get().uiAndVisuals.bars.enableVanillaStyleManaBar
-                && !ShsbmConfigManager.get().uiAndVisuals.bars.enableBars;
+        return Config.ENABLE_VANILLA_MANA_BAR.get() && !Config.ENABLE_BARS.get();
     }
 
     private static void drawNotch(GuiGraphics context, int column, int row,
