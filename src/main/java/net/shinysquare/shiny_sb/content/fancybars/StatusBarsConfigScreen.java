@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanMutablePair;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectMutablePair;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import net.shinysquare.shiny_sb.content.fancybars.BarPositioner.BarLocation;
@@ -79,7 +79,7 @@ public class StatusBarsConfigScreen extends Screen {
         editBarWidget.render(context, mouseX, mouseY, delta);
 
         Window window = minecraft.getWindow();
-        int scaleFactor = window.calculateScale(0, minecraft.isEnforceUnicode()) - window.getGuiScale() + 3;
+        int scaleFactor = (int) Math.max(1, minecraft.getWindow().getGuiScale());
         if ((scaleFactor & 2) == 0) scaleFactor++;
 
         ScreenRectangle mouseRect = new ScreenRectangle(
@@ -292,9 +292,9 @@ public class StatusBarsConfigScreen extends Screen {
         this.addRenderableWidget(Button.builder(
                         Component.literal("?"),
                         button -> minecraft.setScreen(
-                                new PopupScreen.Builder(this, Component.translatable("shiny_sb.bars.config.explanationTitle"))
+                                new PopupScreen.Builder(this, Component.translatable("shsbm.bars.config.explanationTitle"))
                                         .addButton(Component.translatable("gui.ok"), PopupScreen::onClose)
-                                        .setMessage(Component.translatable("shiny_sb.bars.config.explanation"))
+                                        .setMessage(Component.translatable("shsbm.bars.config.explanation"))
                                         .build()))
                 .bounds(width - 20, (height - 15) / 2, 15, 15)
                 .build());

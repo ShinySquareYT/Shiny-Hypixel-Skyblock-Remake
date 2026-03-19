@@ -5,7 +5,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
-import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.world.rift.RiftTimeSyncPacket;
 
 /**
@@ -14,7 +13,6 @@ import net.shinysquare.shiny_sb.world.rift.RiftTimeSyncPacket;
  * New packets: add a playToClient / playToServer line here and create
  * the corresponding record implementing CustomPacketPayload.
  */
-@Mod.EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ShsbmNetwork {
 
     @SubscribeEvent

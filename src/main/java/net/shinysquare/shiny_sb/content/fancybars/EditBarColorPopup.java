@@ -170,7 +170,5 @@ public class EditBarColorPopup extends Screen {
             textFieldWidget.setY(getY());
         }
 
-        @Override protected int contentHeight() { return 0; }
-        @Override protected double scrollRate()  { return 0; }
     }
 }

@@ -41,35 +41,35 @@ public class EditBarWidget extends AbstractContainerWidget {
         Font textRenderer = Minecraft.getInstance().font;
         nameWidget = new StringWidget(Component.empty(), textRenderer);
 
-        MutableComponent translatable = Component.translatable("shiny_sb.bars.config.icon");
+        MutableComponent translatable = Component.translatable("shsbm.bars.config.icon");
         iconOption = new EnumCyclingOption<>(0, 11, getWidth(), translatable, StatusBar.IconPosition.class);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + iconOption.getLongestOptionWidth() + 10);
 
-        translatable = Component.translatable("shiny_sb.bars.config.text");
+        translatable = Component.translatable("shsbm.bars.config.text");
         textOption = new EnumCyclingOption<>(0, 22, getWidth(), translatable, StatusBar.TextPosition.class);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + textOption.getLongestOptionWidth() + 10);
 
-        translatable = Component.translatable("shiny_sb.bars.config.showMax");
+        translatable = Component.translatable("shsbm.bars.config.showMax");
         showMaxOption = new BooleanOption(0, 33, getWidth(), translatable);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
 
-        translatable = Component.translatable("shiny_sb.bars.config.showOverflow");
+        translatable = Component.translatable("shsbm.bars.config.showOverflow");
         showOverflowOption = new BooleanOption(0, 44, getWidth(), translatable);
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
 
-        translatable = Component.translatable("shiny_sb.bars.config.mainColor");
+        translatable = Component.translatable("shsbm.bars.config.mainColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         color1 = new ColorOption(0, 55, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shiny_sb.bars.config.overflowColor");
+        translatable = Component.translatable("shsbm.bars.config.overflowColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         color2 = new ColorOption(0, 66, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shiny_sb.bars.config.textColor");
+        translatable = Component.translatable("shsbm.bars.config.textColor");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         textColor = new ColorOption(0, 77, getWidth(), translatable, parent);
 
-        translatable = Component.translatable("shiny_sb.bars.config.hide");
+        translatable = Component.translatable("shsbm.bars.config.hide");
         contentsWidth = Math.max(contentsWidth, textRenderer.width(translatable) + 9 + 10);
         hideOption = new RunnableOption(0, 88, getWidth(), translatable);
 
@@ -94,13 +94,12 @@ public class EditBarWidget extends AbstractContainerWidget {
             int j = mouseY - insideMouseY;
             if (i * i + j * j > 30 * 30) visible = false;
         }
-        Matrix3x2fStack matrices = context.pose();
-        matrices.pushMatrix();
-        matrices.translate(getX(), getY());
-        TooltipRenderUtil.renderTooltipBackground(context, 0, 0, getWidth(), getHeight(), null);
+        context.pose().pushPose();
+        context.pose().translate(getX(), getY(), 0);
+        TooltipRenderUtil.renderTooltipBackground(context, 0, 0, getWidth(), getHeight(), 0);
         nameWidget.render(context, mouseX, mouseY, delta);
         for (AbstractWidget option : options) option.render(context, mouseX - getX(), mouseY - getY(), delta);
-        matrices.popMatrix();
+        context.pose().popPose();
     }
 
     @Override
@@ -166,8 +165,6 @@ public class EditBarWidget extends AbstractContainerWidget {
         nameWidget.setWidth(width);
     }
 
-    @Override protected int contentHeight() { return 0; }
-    @Override protected double scrollRate()  { return 0; }
 
     // ── Inner option widgets ───────────────────────────────────────────────────
 
@@ -261,7 +258,7 @@ public class EditBarWidget extends AbstractContainerWidget {
             context.drawString(font, getMessage(), getX() + 1, getY() + 1,
                     active ? -1 : CommonColors.GRAY, true);
             // [NEOFORGE] drawBorder inlined from HudHelper.drawBorder()
-            net.shinysquare.shsbm.content.fancybars.EditBarColorPopup.drawBorder(context, getRight() - 10, getY() + 1, 9, 9,
+            EditBarColorPopup.drawBorder(context, getRight() - 10, getY() + 1, 9, 9,
                     active ? -1 : CommonColors.GRAY);
             if (current && active)
                 context.fill(getRight() - 8, getY() + 3, getRight() - 3, getY() + 8, CommonColors.WHITE);
@@ -300,7 +297,7 @@ public class EditBarWidget extends AbstractContainerWidget {
             Font font = Minecraft.getInstance().font;
             context.drawString(font, getMessage(), getX() + 1, getY() + 1,
                     active ? -1 : CommonColors.GRAY, true);
-            net.shinysquare.shsbm.content.fancybars.EditBarColorPopup.drawBorder(context, getRight() - 10, getY() + 1, 9, 9,
+            EditBarColorPopup.drawBorder(context, getRight() - 10, getY() + 1, 9, 9,
                     active ? -1 : CommonColors.GRAY);
             context.fill(getRight() - 8, getY() + 3, getRight() - 3, getY() + 8,
                     active ? current : CommonColors.GRAY);
@@ -310,7 +307,7 @@ public class EditBarWidget extends AbstractContainerWidget {
         @Override
         public void onClick(double mouseX, double mouseY) {
             Minecraft.getInstance().setScreen(
-                    new net.shinysquare.shsbm.content.fancybars.EditBarColorPopup(Component.literal("Edit ").append(getMessage()), parent, this::set));
+                    new EditBarColorPopup(Component.literal("Edit ").append(getMessage()), parent, this::set));
         }
 
         private void set(Color color) {

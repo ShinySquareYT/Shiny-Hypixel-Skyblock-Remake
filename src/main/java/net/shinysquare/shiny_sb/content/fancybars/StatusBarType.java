@@ -3,39 +3,39 @@ package net.shinysquare.shiny_sb.content.fancybars;
 import java.awt.Color;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public enum StatusBarType implements StringRepresentable {
-    // [NEOFORGE] Translation keys changed from "skyblocker.bars.*" to "shiny_sb.bars.*"
+    // [NEOFORGE] Translation keys changed from "skyblocker.bars.*" to "shsbm.bars.*"
     HEALTH("health", BarPositioner.BarAnchor.HOTBAR_TOP, 0,
             new Color[]{new Color(255, 0, 0), new Color(255, 220, 0)},
             true, true, new Color(255, 85, 85),
-            Component.translatable("shiny_sb.bars.config.health")),
+            Component.translatable("shsbm.bars.config.health")),
 
     INTELLIGENCE("intelligence", BarPositioner.BarAnchor.HOTBAR_TOP, 0,
             new Color[]{new Color(0, 255, 255), new Color(180, 0, 255)},
             true, true, new Color(85, 255, 255),
-            Component.translatable("shiny_sb.bars.config.intelligence")),
+            Component.translatable("shsbm.bars.config.intelligence")),
 
     DEFENSE("defense", BarPositioner.BarAnchor.HOTBAR_RIGHT, 0,
             new Color[]{new Color(255, 255, 255)},
             false, false, new Color(185, 185, 185),
-            Component.translatable("shiny_sb.bars.config.defense")),
+            Component.translatable("shsbm.bars.config.defense")),
 
     EXPERIENCE("experience", BarPositioner.BarAnchor.HOTBAR_TOP, 1,
             new Color[]{new Color(100, 230, 70)},
             false, false, new Color(128, 255, 32),
-            Component.translatable("shiny_sb.bars.config.experience")),
+            Component.translatable("shsbm.bars.config.experience")),
 
     SPEED("speed", BarPositioner.BarAnchor.HOTBAR_RIGHT, 0,
             new Color[]{new Color(255, 255, 255)},
             false, true, new Color(185, 185, 185),
-            Component.translatable("shiny_sb.bars.config.speed")),
+            Component.translatable("shsbm.bars.config.speed")),
 
     AIR("air", BarPositioner.BarAnchor.HOTBAR_RIGHT, 1,
             new Color[]{new Color(135, 206, 250)},
             false, true, new Color(150, 230, 255),
-            Component.translatable("shiny_sb.bars.config.air"));
+            Component.translatable("shsbm.bars.config.air"));
 
     private final String id;
     private final BarPositioner.BarAnchor defaultAnchor;

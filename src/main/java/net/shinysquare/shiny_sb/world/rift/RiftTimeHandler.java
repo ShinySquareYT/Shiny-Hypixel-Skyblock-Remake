@@ -1,4 +1,4 @@
-package net.shinysquare.shsbm.world.rift;
+package net.shinysquare.shiny_sb.world.rift;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -10,9 +10,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.shinysquare.shsbm.ShinyHypixelSBRemake;
-import net.shinysquare.shsbm.registry.ShsbmAttachments;
-import net.shinysquare.shsbm.utils.Utils;
+import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
+import net.shinysquare.shiny_sb.register.ShsbmAttachments;
+import net.shinysquare.shiny_sb.content.utils.Utils;
 
 /**
  * Server-side handler for The Rift time mechanic.
@@ -40,7 +40,6 @@ import net.shinysquare.shsbm.utils.Utils;
  *  it must also run on a dedicated server. All code here is server-side;
  *  the client only receives the sync packet.
  */
-@Mod.EventBusSubscriber(modid = ShinyHypixelSBRemake.MOD_ID, bus = Mod.EventBusSubscriber.Bus.GAME)
 public class RiftTimeHandler {
 
     /** Default time (in seconds) a player gets when first entering The Rift. */
@@ -116,13 +115,13 @@ public class RiftTimeHandler {
         if (newTime <= 0) {
             // Warn the player the tick they hit zero, then eject next tick
             player.sendSystemMessage(
-                    Component.translatable("shiny_sb.rift.time_expired"));
+                    Component.translatable("shsbm.rift.time_expired"));
             ejectToOverworld(player);
         } else if (newTime <= 30) {
             // Warn every 10 seconds when under 30s remaining
             if (newTime % 10 == 0 || newTime == 5 || newTime == 3 || newTime == 1) {
                 player.sendSystemMessage(
-                        Component.translatable("shiny_sb.rift.time_warning", newTime));
+                        Component.translatable("shsbm.rift.time_warning", newTime));
             }
         }
     }
@@ -162,16 +161,12 @@ public class RiftTimeHandler {
                 : null;
 
         if (respawn != null && respawnLevel != null) {
-            // Use ServerPlayer.findRespawnPositionAndUseSpawnBlock to validate the bed/anchor
-            var safeSpawn = ServerPlayer.findRespawnPositionAndUseSpawnBlock(
-                    respawnLevel, respawn, player.getRespawnAngle(), false, false);
-            if (safeSpawn.isPresent()) {
-                var pos = safeSpawn.get();
-                player.teleportTo(respawnLevel,
-                        pos.x(), pos.y(), pos.z(),
-                        player.getRespawnAngle(), 0f);
-                return;
-            }
+            player.teleportTo(respawnLevel,
+                    respawn.getX() + 0.5,
+                    respawn.getY(),
+                    respawn.getZ() + 0.5,
+                    player.getRespawnAngle(), 0f);
+            return;
         }
 
         // Fall back to overworld spawn

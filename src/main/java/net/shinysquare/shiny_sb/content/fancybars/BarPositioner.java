@@ -1,6 +1,6 @@
 package net.shinysquare.shiny_sb.content.fancybars;
 
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 import java.util.LinkedList;

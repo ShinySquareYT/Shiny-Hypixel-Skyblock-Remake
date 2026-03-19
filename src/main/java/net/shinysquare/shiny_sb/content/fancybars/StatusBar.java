@@ -1,15 +1,16 @@
 package net.shinysquare.shiny_sb.content.fancybars;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.shinysquare.shiny_sb.ShinyHypixelSBRemake;
+import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.config.ShsbmConfigManager;
 import net.shinysquare.shiny_sb.config.UIAndVisualsConfig;
-import net.shinysquare.shiny_sb.utils.Utils;
+import net.shinysquare.shiny_sb.content.utils.Utils;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.Color;
 import java.util.function.Consumer;
@@ -33,14 +34,14 @@ import net.minecraft.util.StringRepresentable;
 
 public class StatusBar implements LayoutElement, Renderable, GuiEventListener, NarratableEntry {
 
-    private static final ResourceLocation BAR_FILL = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/bar_fill");
-    private static final ResourceLocation BAR_BACK  = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/bar_back");
+    private static final ResourceLocation BAR_FILL = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/bar_fill");
+    private static final ResourceLocation BAR_BACK  = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/bar_back");
 
     public static final int ICON_SIZE = 9;
 
     // [NEOFORGE] Identifier → ResourceLocation (Yarn mapping vs official mapping)
     private final ResourceLocation icon;
-    private final net.shinysquare.shsbm.content.fancybars.StatusBarType type;
+    private final StatusBarType type;
     private Color[] colors;
     private @Nullable Color textColor;
 
@@ -57,7 +58,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
 
     public int gridX = 0, gridY = 0;
     public float x = 0, y = 0, width = 0;
-    public net.shinysquare.shsbm.content.fancybars.BarPositioner.@Nullable BarAnchor anchor = null;
+    public BarPositioner.@Nullable BarAnchor anchor = null;
     public int size = 1;
     public float fill = 0, overflowFill = 0;
     public boolean inMouse = false;
@@ -76,8 +77,8 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
 
     public boolean showMax = false, showOverflow = false;
 
-    public StatusBar(net.shinysquare.shsbm.content.fancybars.StatusBarType type) {
-        this.icon   = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/icons/" + type.getSerializedName());
+    public StatusBar(StatusBarType type) {
+        this.icon   = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/icons/" + type.getSerializedName());
         this.colors = type.getColors();
         this.textColor = type.getTextColor();
         this.type   = type;
@@ -297,7 +298,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         LEFT, RIGHT, OFF;
         @Override public String getSerializedName() { return name(); }
         @Override public String toString() {
-            return I18n.get("shiny_sb.bars.config.commonPosition." + name());
+            return I18n.get("shsbm.bars.config.commonPosition." + name());
         }
     }
 
@@ -306,8 +307,8 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         @Override public String getSerializedName() { return name(); }
         @Override public String toString() {
             if (this == CENTER || this == BAR_CENTER)
-                return I18n.get("shiny_sb.bars.config.textPosition." + name());
-            return I18n.get("shiny_sb.bars.config.commonPosition." + name());
+                return I18n.get("shsbm.bars.config.textPosition." + name());
+            return I18n.get("shsbm.bars.config.commonPosition." + name());
         }
     }
 
@@ -336,7 +337,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
             this.textColor = new Color(Integer.parseInt(object.get("text_color").getAsString(), 16));
 
         String maybeAnchor = object.get("anchor").getAsString().trim();
-        this.anchor = maybeAnchor.equals("null") ? null : net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.valueOf(maybeAnchor);
+        this.anchor = maybeAnchor.equals("null") ? null : BarPositioner.BarAnchor.valueOf(maybeAnchor);
 
         if (!object.has("enabled")) enabled = anchor != null;
         else enabled = object.get("enabled").getAsBoolean();
@@ -385,7 +386,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
     // ── Subclasses ────────────────────────────────────────────────────────────
 
     public static class ManaStatusBar extends StatusBar {
-        public ManaStatusBar(net.shinysquare.shsbm.content.fancybars.StatusBarType type) { super(type); }
+        public ManaStatusBar(StatusBarType type) { super(type); }
 
         @Override
         protected void drawBarFill(GuiGraphics context, int barX, int barWidth) {
@@ -419,9 +420,9 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
 
     public static class ExperienceStatusBar extends StatusBar {
         private static final ResourceLocation CLOCK_ICON =
-                ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/icons/rift_time");
+                ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/icons/rift_time");
 
-        public ExperienceStatusBar(net.shinysquare.shsbm.content.fancybars.StatusBarType type) { super(type); }
+        public ExperienceStatusBar(StatusBarType type) { super(type); }
 
         @Override
         protected ResourceLocation getIcon() {

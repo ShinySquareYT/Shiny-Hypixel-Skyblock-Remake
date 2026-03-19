@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import net.shinysquare.shiny_sb.content.fancybars.StatusBar;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
-import net.shinysquare.shiny_sb.utils.Utils;
+import net.shinysquare.shiny_sb.content.utils.Utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,7 +29,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.VisibleForTesting;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,28 +49,27 @@ import java.util.concurrent.Executors;
  * There is no config toggle. The vanilla health, armour, food, air, and XP bars
  * are unconditionally replaced by the fancy bars the moment a world is entered.
  *
- * The config screen (/shiny_sb bars) still exists so players can reposition, resize,
+ * The config screen (/shsbm bars) still exists so players can reposition, resize,
  * and recolor individual bars — it just no longer controls whether bars show at all.
  */
-@Mod.EventBusSubscriber(modid = ShinyHypixelSBRemake.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class FancyStatusBars {
 
     private static final ResourceLocation HUD_LAYER =
-            ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "fancy_status_bars");
+            ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "fancy_status_bars");
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static Path FILE;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FancyStatusBars.class);
 
-    public static net.shinysquare.shsbm.content.fancybars.BarPositioner barPositioner = new net.shinysquare.shsbm.content.fancybars.BarPositioner();
-    public static Map<net.shinysquare.shsbm.content.fancybars.StatusBarType, StatusBar> statusBars = new EnumMap<>(net.shinysquare.shsbm.content.fancybars.StatusBarType.class);
+    public static BarPositioner barPositioner = new BarPositioner();
+    public static Map<StatusBarType, StatusBar> statusBars = new EnumMap<>(StatusBarType.class);
     private static boolean updatePositionsNextFrame;
 
-    public static boolean isHealthFancyBarEnabled()     { return isBarEnabled(net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH); }
-    public static boolean isExperienceFancyBarEnabled() { return isBarEnabled(net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE); }
+    public static boolean isHealthFancyBarEnabled()     { return isBarEnabled(StatusBarType.HEALTH); }
+    public static boolean isExperienceFancyBarEnabled() { return isBarEnabled(StatusBarType.EXPERIENCE); }
 
-    public static boolean isBarEnabled(net.shinysquare.shsbm.content.fancybars.StatusBarType type) {
+    public static boolean isBarEnabled(StatusBarType type) {
         StatusBar bar = statusBars.get(type);
         return bar != null && (bar.enabled || bar.inMouse);
     }
@@ -81,16 +79,16 @@ public class FancyStatusBars {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         FILE = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get()
-                .resolve(ShinyHypixelSBRemake.MOD_ID)
+                .resolve(ShinysHypixelSBRemake.MOD_ID)
                 .resolve("status_bars.json");
         try { Files.createDirectories(FILE.getParent()); } catch (IOException ignored) {}
 
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH,       net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH.newStatusBar());
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.INTELLIGENCE, net.shinysquare.shsbm.content.fancybars.StatusBarType.INTELLIGENCE.newStatusBar());
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.DEFENSE,      net.shinysquare.shsbm.content.fancybars.StatusBarType.DEFENSE.newStatusBar());
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE,   net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE.newStatusBar());
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.SPEED,        net.shinysquare.shsbm.content.fancybars.StatusBarType.SPEED.newStatusBar());
-        statusBars.put(net.shinysquare.shsbm.content.fancybars.StatusBarType.AIR,          net.shinysquare.shsbm.content.fancybars.StatusBarType.AIR.newStatusBar());
+        statusBars.put(StatusBarType.HEALTH,       StatusBarType.HEALTH.newStatusBar());
+        statusBars.put(StatusBarType.INTELLIGENCE, StatusBarType.INTELLIGENCE.newStatusBar());
+        statusBars.put(StatusBarType.DEFENSE,      StatusBarType.DEFENSE.newStatusBar());
+        statusBars.put(StatusBarType.EXPERIENCE,   StatusBarType.EXPERIENCE.newStatusBar());
+        statusBars.put(StatusBarType.SPEED,        StatusBarType.SPEED.newStatusBar());
+        statusBars.put(StatusBarType.AIR,          StatusBarType.AIR.newStatusBar());
 
         applyDefaultPositions();
 
@@ -99,18 +97,18 @@ public class FancyStatusBars {
                     if (object != null) {
                         for (String key : object.keySet()) {
                             try {
-                                net.shinysquare.shsbm.content.fancybars.StatusBarType type = net.shinysquare.shsbm.content.fancybars.StatusBarType.from(key);
+                                StatusBarType type = StatusBarType.from(key);
                                 if (statusBars.containsKey(type))
                                     statusBars.get(type).loadFromJson(object.get(key).getAsJsonObject());
                             } catch (Exception e) {
-                                LOGGER.error("[shiny_sb] Failed to load {} status bar", key, e);
+                                LOGGER.error("[shsbm] Failed to load {} status bar", key, e);
                             }
                         }
                     }
                     placeBarsInPositioner();
                     configLoaded = true;
                 })
-                .exceptionally(t -> { LOGGER.error("[shiny_sb] Failed reading status bars config", t); return null; });
+                .exceptionally(t -> { LOGGER.error("[shsbm] Failed reading status bars config", t); return null; });
 
         NeoForge.EVENT_BUS.addListener((GameShuttingDownEvent e) -> saveBarConfig());
         NeoForge.EVENT_BUS.addListener(FancyStatusBars::onRenderGuiLayerPre);
@@ -141,7 +139,7 @@ public class FancyStatusBars {
         else if (name.equals(VanillaGuiLayers.EXPERIENCE_LEVEL) && isExperienceFancyBarEnabled()) { event.setCanceled(true); }
         else if (name.equals(VanillaGuiLayers.EXPERIENCE_BAR)   && isExperienceFancyBarEnabled()) { event.setCanceled(true); }
         else if (name.equals(VanillaGuiLayers.ARMOR_LEVEL))                                   { event.setCanceled(true); }
-        else if (name.equals(VanillaGuiLayers.MOUNT_HEALTH))                                  { event.setCanceled(true); }
+        else if (name.equals(VanillaGuiLayers.VEHICLE_HEALTH))                                  { event.setCanceled(true); }
         else if (name.equals(VanillaGuiLayers.FOOD_LEVEL))                                    { event.setCanceled(true); }
         else if (name.equals(VanillaGuiLayers.AIR_LEVEL))                                     { event.setCanceled(true); }
     }
@@ -151,7 +149,7 @@ public class FancyStatusBars {
                 Commands.literal(ShinysHypixelSBRemake.MOD_ID)
                         .then(Commands.literal("bars").executes(ctx -> {
                             Minecraft.getInstance().execute(
-                                    () -> Minecraft.getInstance().setScreen(new net.shinysquare.shsbm.content.fancybars.StatusBarsConfigScreen()));
+                                    () -> Minecraft.getInstance().setScreen(new StatusBarsConfigScreen()));
                             return 1;
                         })));
     }
@@ -167,23 +165,23 @@ public class FancyStatusBars {
      *   HOTBAR_RIGHT     : AIR (hidden until underwater)
      */
     private static void applyDefaultPositions() {
-        StatusBar health = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH);
-        health.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_TOP; health.gridY = 0; health.gridX = 0; health.enabled = true;
+        StatusBar health = statusBars.get(StatusBarType.HEALTH);
+        health.anchor = BarPositioner.BarAnchor.HOTBAR_TOP; health.gridY = 0; health.gridX = 0; health.enabled = true;
 
-        StatusBar intel = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.INTELLIGENCE);
-        intel.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_TOP; intel.gridY = 0; intel.gridX = 1; intel.enabled = true;
+        StatusBar intel = statusBars.get(StatusBarType.INTELLIGENCE);
+        intel.anchor = BarPositioner.BarAnchor.HOTBAR_TOP; intel.gridY = 0; intel.gridX = 1; intel.enabled = true;
 
-        StatusBar exp = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE);
-        exp.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_TOP; exp.gridY = 1; exp.gridX = 0; exp.enabled = true;
+        StatusBar exp = statusBars.get(StatusBarType.EXPERIENCE);
+        exp.anchor = BarPositioner.BarAnchor.HOTBAR_TOP; exp.gridY = 1; exp.gridX = 0; exp.enabled = true;
 
-        StatusBar def = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.DEFENSE);
-        def.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_RIGHT; def.gridY = 0; def.gridX = 0; def.enabled = true;
+        StatusBar def = statusBars.get(StatusBarType.DEFENSE);
+        def.anchor = BarPositioner.BarAnchor.HOTBAR_RIGHT; def.gridY = 0; def.gridX = 0; def.enabled = true;
 
-        StatusBar spd = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.SPEED);
-        spd.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_RIGHT; spd.gridY = 0; spd.gridX = 1; spd.enabled = true;
+        StatusBar spd = statusBars.get(StatusBarType.SPEED);
+        spd.anchor = BarPositioner.BarAnchor.HOTBAR_RIGHT; spd.gridY = 0; spd.gridX = 1; spd.enabled = true;
 
-        StatusBar air = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.AIR);
-        air.anchor = net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_RIGHT; air.gridY = 1; air.gridX = 0;
+        StatusBar air = statusBars.get(StatusBarType.AIR);
+        air.anchor = BarPositioner.BarAnchor.HOTBAR_RIGHT; air.gridY = 1; air.gridX = 0;
         air.enabled = false; // shown dynamically when underwater
     }
 
@@ -194,7 +192,7 @@ public class FancyStatusBars {
     @VisibleForTesting
     public static void placeBarsInPositioner() {
         barPositioner.clear();
-        for (net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor anchor : net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.allAnchors()) {
+        for (BarPositioner.BarAnchor anchor : BarPositioner.BarAnchor.allAnchors()) {
             List<StatusBar> barList = statusBars.values().stream()
                     .filter(b -> b.anchor == anchor)
                     .sorted(Comparator.<StatusBar>comparingInt(b -> b.gridY).thenComparingInt(b -> b.gridX))
@@ -213,9 +211,9 @@ public class FancyStatusBars {
         try (BufferedReader r = Files.newBufferedReader(FILE)) {
             return GSON.fromJson(r, JsonObject.class);
         } catch (NoSuchFileException e) {
-            LOGGER.warn("[shiny_sb] No status bar config found, using defaults");
+            LOGGER.warn("[shsbm] No status bar config found, using defaults");
         } catch (Exception e) {
-            LOGGER.error("[shiny_sb] Failed to load status bars config", e);
+            LOGGER.error("[shsbm] Failed to load status bars config", e);
         }
         return null;
     }
@@ -226,7 +224,7 @@ public class FancyStatusBars {
         try (BufferedWriter w = Files.newBufferedWriter(FILE)) {
             GSON.toJson(out, w);
         } catch (IOException e) {
-            LOGGER.error("[shiny_sb] Failed to save status bars config", e);
+            LOGGER.error("[shsbm] Failed to save status bars config", e);
         }
     }
 
@@ -249,11 +247,11 @@ public class FancyStatusBars {
             }
         }
 
-        for (net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor anchor : net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.allAnchors()) {
+        for (BarPositioner.BarAnchor anchor : BarPositioner.BarAnchor.allAnchors()) {
             ScreenPosition pos  = anchor.getAnchorPosition(W, H);
-            net.shinysquare.shsbm.content.fancybars.BarPositioner.SizeRule rule = anchor.getSizeRule();
+            BarPositioner.SizeRule rule = anchor.getSizeRule();
             int targetSize = rule.targetSize();
-            boolean healthMoved = anchor == net.shinysquare.shsbm.content.fancybars.BarPositioner.BarAnchor.HOTBAR_TOP && !isHealthFancyBarEnabled();
+            boolean healthMoved = anchor == BarPositioner.BarAnchor.HOTBAR_TOP && !isHealthFancyBarEnabled();
             if (healthMoved) targetSize /= 2;
 
             if (rule.isTargetSize()) {
@@ -329,12 +327,12 @@ public class FancyStatusBars {
             // The Rift: vanilla HP used directly (no Skyblock scaling)
             int hp    = Math.round(player.getHealth());
             int maxHp = Math.round(player.getMaxHealth());
-            statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH).updateValues(hp / (float) maxHp, 0, hp, maxHp, null);
-            statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.DEFENSE).visible = false;
+            statusBars.get(StatusBarType.HEALTH).updateValues(hp / (float) maxHp, 0, hp, maxHp, null);
+            statusBars.get(StatusBarType.DEFENSE).visible = false;
         } else {
-            statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.HEALTH).updateWithResource(StatusBarTracker.getHealth());
+            statusBars.get(StatusBarType.HEALTH).updateWithResource(StatusBarTracker.getHealth());
             int def = StatusBarTracker.getDefense();
-            StatusBar defBar = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.DEFENSE);
+            StatusBar defBar = statusBars.get(StatusBarType.DEFENSE);
             defBar.visible = true;
             defBar.updateValues(def / (def + 100f), 0, def, null, null);
         }
@@ -344,27 +342,27 @@ public class FancyStatusBars {
         // To spend mana: call StatusBarTracker.addMana(-cost)
         // To set it:     call StatusBarTracker.setMana(value, max, overflow)
         StatusBarTracker.Resource mana = StatusBarTracker.getMana();
-        statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.INTELLIGENCE).updateValues(
+        statusBars.get(StatusBarType.INTELLIGENCE).updateValues(
                 mana.value() / (float) mana.max(),
                 mana.overflow() / (float) mana.max(),
                 mana.value(), mana.max(),
                 mana.overflow() > 0 ? mana.overflow() : null);
 
         // ── Speed ─────────────────────────────────────────────────────────────
-        statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.SPEED).updateWithResource(StatusBarTracker.getSpeed());
+        statusBars.get(StatusBarType.SPEED).updateWithResource(StatusBarTracker.getSpeed());
 
         // ── Experience / Rift time ────────────────────────────────────────────
         if (Utils.isInTheRift()) {
             int riftSecs = StatusBarTracker.getRiftTime();
             // Fill = seconds / 10 minutes (600s). Falls back to vanilla XP progress if unset.
             float fill = riftSecs > 0 ? Math.clamp(riftSecs / 600f, 0f, 1f) : player.experienceProgress;
-            statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE).updateValues(fill, 0, riftSecs > 0 ? riftSecs : player.experienceLevel, null, null);
+            statusBars.get(StatusBarType.EXPERIENCE).updateValues(fill, 0, riftSecs > 0 ? riftSecs : player.experienceLevel, null, null);
         } else {
-            statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.EXPERIENCE).updateValues(player.experienceProgress, 0, player.experienceLevel, null, null);
+            statusBars.get(StatusBarType.EXPERIENCE).updateValues(player.experienceProgress, 0, player.experienceLevel, null, null);
         }
 
         // ── Air ───────────────────────────────────────────────────────────────
-        StatusBar airBar = statusBars.get(net.shinysquare.shsbm.content.fancybars.StatusBarType.AIR);
+        StatusBar airBar = statusBars.get(StatusBarType.AIR);
         airBar.updateWithResource(StatusBarTracker.getAir());
         boolean shouldShowAir = player.isUnderWater();
         if (shouldShowAir != airBar.visible) {

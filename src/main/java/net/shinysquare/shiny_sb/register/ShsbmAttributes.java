@@ -27,7 +27,7 @@ public class ShsbmAttributes {
     public static final DeferredHolder<Attribute, RangedAttribute> MAX_MANA =
             ATTRIBUTES.register("max_mana",
                     () -> (RangedAttribute) new RangedAttribute(
-                            "attribute.shiny_sb.max_mana", 100.0, 0.0, 2048.0)
+                            "attribute.shsbm.max_mana", 100.0, 0.0, 2048.0)
                             .setSyncable(true));
 
     /**

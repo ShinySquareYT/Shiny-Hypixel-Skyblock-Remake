@@ -1,13 +1,13 @@
 package net.shinysquare.shiny_sb.content.fancybars;
 
-import net.shinysquare.shiny_sb.ShinyHypixelSBRemake;
+import net.minecraft.Util;
+import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.config.ShsbmConfigManager;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Util;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,7 +25,6 @@ import net.neoforged.neoforge.common.NeoForge;
  *
  * isOnSkyblock() removed — this mod is standalone and works in any world.
  */
-@Mod.EventBusSubscriber(modid = ShinyHypixelSBRemake.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class VanillaStyleManaBar {
 
     private static int lastManaValue;
@@ -34,23 +33,23 @@ public class VanillaStyleManaBar {
     private static int overflowValueBlinkStart;
     private static long blinkEndTime;
 
-    private static final ResourceLocation MANABAR_FOOD_HUD_ID   = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "vanilla_style_mana_bar_food");
-    private static final ResourceLocation MANABAR_MOUNT_HUD_ID  = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "vanilla_style_mana_bar_mount");
+    private static final ResourceLocation MANABAR_FOOD_HUD_ID   = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "vanilla_style_mana_bar_food");
+    private static final ResourceLocation MANABAR_MOUNT_HUD_ID  = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "vanilla_style_mana_bar_mount");
 
-    private static final ResourceLocation CONTAINER_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/container");
-    private static final ResourceLocation MANA_FULL_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_full");
-    private static final ResourceLocation MANA_HALF_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_half");
-    private static final ResourceLocation OVERFLOW_FULL_TEXTURE          = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_full");
-    private static final ResourceLocation OVERFLOW_HALF_TEXTURE          = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_half");
-    private static final ResourceLocation OVERFLOW_DARK_FULL_TEXTURE     = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_full");
-    private static final ResourceLocation OVERFLOW_DARK_HALF_TEXTURE     = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_half");
-    private static final ResourceLocation CONTAINER_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/container_blink");
-    private static final ResourceLocation MANA_FULL_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_full_blink");
-    private static final ResourceLocation MANA_HALF_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_half_blink");
-    private static final ResourceLocation OVERFLOW_FULL_BLINK_TEXTURE    = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_full_blink");
-    private static final ResourceLocation OVERFLOW_HALF_BLINK_TEXTURE    = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_half_blink");
-    private static final ResourceLocation OVERFLOW_DARK_FULL_BLINK_TEXTURE  = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_full_blink");
-    private static final ResourceLocation OVERFLOW_DARK_HALF_BLINK_TEXTURE  = ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_half_blink");
+    private static final ResourceLocation CONTAINER_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/container");
+    private static final ResourceLocation MANA_FULL_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_full");
+    private static final ResourceLocation MANA_HALF_TEXTURE              = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_half");
+    private static final ResourceLocation OVERFLOW_FULL_TEXTURE          = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_full");
+    private static final ResourceLocation OVERFLOW_HALF_TEXTURE          = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_half");
+    private static final ResourceLocation OVERFLOW_DARK_FULL_TEXTURE     = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_full");
+    private static final ResourceLocation OVERFLOW_DARK_HALF_TEXTURE     = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_half");
+    private static final ResourceLocation CONTAINER_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/container_blink");
+    private static final ResourceLocation MANA_FULL_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_full_blink");
+    private static final ResourceLocation MANA_HALF_BLINK_TEXTURE        = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/mana_half_blink");
+    private static final ResourceLocation OVERFLOW_FULL_BLINK_TEXTURE    = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_full_blink");
+    private static final ResourceLocation OVERFLOW_HALF_BLINK_TEXTURE    = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_half_blink");
+    private static final ResourceLocation OVERFLOW_DARK_FULL_BLINK_TEXTURE  = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_full_blink");
+    private static final ResourceLocation OVERFLOW_DARK_HALF_BLINK_TEXTURE  = ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "bars/vanilla_mana/overflow_dark_half_blink");
 
     enum NotchType { CONTAINER, MANA, OVERFLOW, OVERFLOW_DARK }
 
@@ -65,7 +64,7 @@ public class VanillaStyleManaBar {
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
         event.registerBelow(VanillaGuiLayers.FOOD_LEVEL, MANABAR_FOOD_HUD_ID,
                 (guiGraphics, deltaTracker) -> { if (isEnabled()) render(guiGraphics); });
-        event.registerBelow(VanillaGuiLayers.MOUNT_HEALTH, MANABAR_MOUNT_HUD_ID,
+        event.registerBelow(VanillaGuiLayers.VEHICLE_HEALTH, MANABAR_MOUNT_HUD_ID,
                 (guiGraphics, deltaTracker) -> { if (isEnabled()) render(guiGraphics); });
     }
 
@@ -74,7 +73,7 @@ public class VanillaStyleManaBar {
     public static void onRenderGuiLayerPre(RenderGuiLayerEvent.Pre event) {
         if (!isEnabled()) return;
         ResourceLocation name = event.getName();
-        if (name.equals(VanillaGuiLayers.FOOD_LEVEL) || name.equals(VanillaGuiLayers.MOUNT_HEALTH)) {
+        if (name.equals(VanillaGuiLayers.FOOD_LEVEL) || name.equals(VanillaGuiLayers.VEHICLE_HEALTH)) {
             event.setCanceled(true);
         }
     }

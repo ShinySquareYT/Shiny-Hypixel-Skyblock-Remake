@@ -1,13 +1,34 @@
 {
-  "itemGroup.shiny_sb": "Example Mod Tab",
-  "block.shiny_sb.example_block": "Example Block",
-  "item.shiny_sb.example_item": "Example Item",
+  "_comment": "ShinyHypixelSBRemake language file",
 
-  "shiny_sb.configuration.title": "Shiny's Hypixel SB remake Configs",
-  "shiny_sb.configuration.section.shiny_sb.common.toml": "Shiny's Hypixel SB remake Configs",
-  "shiny_sb.configuration.section.shiny_sb.common.toml.title": "Shiny's Hypixel SB remake Configs",
-  "shiny_sb.configuration.items": "Item List",
-  "shiny_sb.configuration.logDirtBlock": "Log Dirt Block",
-  "shiny_sb.configuration.magicNumberIntroduction": "Magic Number Text",
-  "shiny_sb.configuration.magicNumber": "Magic Number"
+  "attribute.shsbm.max_mana": "Max Mana",
+
+  "shsbm.bars.config.health": "Health",
+  "shsbm.bars.config.intelligence": "Mana",
+  "shsbm.bars.config.defense": "Defense",
+  "shsbm.bars.config.experience": "Experience",
+  "shsbm.bars.config.speed": "Speed",
+  "shsbm.bars.config.air": "Air",
+
+  "shsbm.bars.config.icon": "Icon",
+  "shsbm.bars.config.text": "Text",
+  "shsbm.bars.config.showMax": "Show Max",
+  "shsbm.bars.config.showOverflow": "Show Overflow",
+  "shsbm.bars.config.mainColor": "Color",
+  "shsbm.bars.config.overflowColor": "Overflow Color",
+  "shsbm.bars.config.textColor": "Text Color",
+  "shsbm.bars.config.hide": "Hide",
+
+  "shsbm.bars.config.commonPosition.LEFT": "Left",
+  "shsbm.bars.config.commonPosition.RIGHT": "Right",
+  "shsbm.bars.config.commonPosition.OFF": "Off",
+
+  "shsbm.bars.config.textPosition.CENTER": "Screen Center",
+  "shsbm.bars.config.textPosition.BAR_CENTER": "Bar Center",
+
+  "shsbm.bars.config.explanationTitle": "Status Bars Help",
+  "shsbm.bars.config.explanation": "Left-click and drag a bar to reposition it.\nRight-click a bar to edit its colors and text.\nDrag the edge of a bar to resize it.\nBars snap to anchor zones near the hotbar.",
+
+  "shsbm.rift.time_expired": "Your rift time has run out! Returning to the Overworld...",
+  "shsbm.rift.time_warning": "Rift time remaining: %s seconds!"
 }

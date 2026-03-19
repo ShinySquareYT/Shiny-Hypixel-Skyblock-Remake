@@ -1,4 +1,4 @@
-package net.shinysquare.shsbm.world.rift;
+package net.shinysquare.shiny_sb.world.rift;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -6,8 +6,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.shinysquare.shsbm.ShinyHypixelSBRemake;
-import net.shinysquare.shsbm.skyblock.StatusBarTracker;
+import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
+import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 
 /**
  * Sent from server → client every second while the player is in The Rift.
@@ -17,7 +17,7 @@ import net.shinysquare.shsbm.skyblock.StatusBarTracker;
 public record RiftTimeSyncPacket(int seconds) implements CustomPacketPayload {
 
     public static final Type<RiftTimeSyncPacket> TYPE = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(ShinyHypixelSBRemake.MOD_ID, "rift_time_sync"));
+            ResourceLocation.fromNamespaceAndPath(ShinysHypixelSBRemake.MOD_ID, "rift_time_sync"));
 
     public static final StreamCodec<ByteBuf, RiftTimeSyncPacket> STREAM_CODEC =
             StreamCodec.composite(

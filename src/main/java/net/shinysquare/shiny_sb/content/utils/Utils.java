@@ -11,7 +11,7 @@ public class Utils {
 
     /**
      * ResourceKey for The Rift custom dimension.
-     * Matches data/shiny_sb/dimension/the_rift.json
+     * Matches data/shsbm/dimension/the_rift.json
      */
     public static final ResourceKey<Level> THE_RIFT = ResourceKey.create(
             Registries.DIMENSION,

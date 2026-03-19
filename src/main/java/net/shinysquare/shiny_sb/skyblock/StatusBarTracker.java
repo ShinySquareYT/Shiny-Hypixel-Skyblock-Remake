@@ -1,6 +1,7 @@
 package net.shinysquare.shiny_sb.skyblock;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -8,7 +9,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.register.ShsbmAttributes;
-import net.shinysquare.shiny_sb.utils.Utils;
+import net.shinysquare.shiny_sb.content.utils.Utils;
 
 /**
  * Central stat store for all fancy status bars.
@@ -31,7 +32,6 @@ import net.shinysquare.shiny_sb.utils.Utils;
  * bars always have a baseline value even if no ability system has run yet.
  * Any explicit setter call overrides these auto-synced values for that tick.
  */
-@Mod.EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, bus = Mod.EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class StatusBarTracker {
 
     // ── Internal state ────────────────────────────────────────────────────────
@@ -92,7 +92,7 @@ public class StatusBarTracker {
         // --- Mana cap from attribute ---
         if (!manaSetThisTick) {
             // Read MAX_MANA attribute if present; fall back to stored value
-            var maxManaAttr = player.getAttributes().getInstance(ShsbmAttributes.MAX_MANA.get());
+            AttributeInstance maxManaAttr = player.getAttributes().getInstance(ShsbmAttributes.MAX_MANA);
             if (maxManaAttr != null) {
                 maxMana = (int) maxManaAttr.getValue();
                 // Clamp current mana in case the cap was lowered
