@@ -6,7 +6,13 @@
   "has_ceiling": false,
   "ambient_light": 0.1,
   "fixed_time": 18000,
-  "monster_spawn_light_level": 7,
+  "monster_spawn_light_level": {
+    "type": "minecraft:uniform",
+    "value": {
+      "min_inclusive": 0,
+      "max_inclusive": 7
+    }
+  },
   "monster_spawn_block_light_limit": 0,
   "piglin_safe": false,
   "bed_works": false,
@@ -16,6 +22,5 @@
   "min_y": 0,
   "height": 256,
   "infiniburn": "#minecraft:infiniburn_overworld",
-  "effects": "minecraft:the_end",
-  "has_no_sky_light": false
+  "effects": "minecraft:the_end"
 }
