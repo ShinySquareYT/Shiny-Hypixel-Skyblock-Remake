@@ -5,7 +5,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -40,6 +42,7 @@ import net.shinysquare.shiny_sb.content.utils.Utils;
  *  it must also run on a dedicated server. All code here is server-side;
  *  the client only receives the sync packet.
  */
+@EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, value = Dist.CLIENT)
 public class RiftTimeHandler {
 
     /** Default time (in seconds) a player gets when first entering The Rift. */

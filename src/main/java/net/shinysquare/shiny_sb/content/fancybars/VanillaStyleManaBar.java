@@ -1,6 +1,7 @@
 package net.shinysquare.shiny_sb.content.fancybars;
 
 import net.minecraft.Util;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.shinysquare.shiny_sb.Config;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
@@ -25,6 +26,7 @@ import net.neoforged.neoforge.common.NeoForge;
  *
  * isOnSkyblock() removed — this mod is standalone and works in any world.
  */
+@EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, value = Dist.CLIENT)
 public class VanillaStyleManaBar {
 
     private static int lastManaValue;

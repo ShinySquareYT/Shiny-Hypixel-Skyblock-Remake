@@ -92,6 +92,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         renderBar(context);
         if (enabled) renderText(context);
+
     }
 
     protected ResourceLocation getIcon() { return icon; }
@@ -121,14 +122,26 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
      * does not expose a pipeline argument. Color tinting is achieved through
      * RenderSystem.setShaderColor(), which must be reset to (1,1,1,1) immediately after.
      */
+//    protected static void blitSpriteColored(GuiGraphics context, ResourceLocation sprite,
+//                                             int x, int y, int width, int height, int argb) {
+//        float a = ((argb >> 24) & 0xFF) / 255f;
+//        float r = ((argb >> 16) & 0xFF) / 255f;
+//        float g = ((argb >> 8)  & 0xFF) / 255f;
+//        float b = ( argb        & 0xFF) / 255f;
+//        RenderSystem.setShaderColor(r, g, b, a);
+//        context.blitSprite(sprite, x, y, width, height);
+//        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+//    }
     protected static void blitSpriteColored(GuiGraphics context, ResourceLocation sprite,
-                                             int x, int y, int width, int height, int argb) {
+                                            int x, int y, int width, int height, int argb) {
         float a = ((argb >> 24) & 0xFF) / 255f;
         float r = ((argb >> 16) & 0xFF) / 255f;
         float g = ((argb >> 8)  & 0xFF) / 255f;
         float b = ( argb        & 0xFF) / 255f;
         RenderSystem.setShaderColor(r, g, b, a);
-        context.blitSprite(sprite, x, y, width, height);
+        ResourceLocation texturePath = ResourceLocation.fromNamespaceAndPath(
+                sprite.getNamespace(), "textures/" + sprite.getPath() + ".png");
+        context.blit(texturePath, x, y, 0, 0, width, height, width, height);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
 
@@ -148,15 +161,28 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
      * GuiGraphics.blitSprite() natively handles nine-slice sprites defined in assets/<ns>/atlases.
      * Color tinting uses RenderSystem.setShaderColor() as above.
      */
+//    public static void renderNineSliceColored(GuiGraphics context, ResourceLocation sprite,
+//                                               int x, int y, int width, int height, int argb) {
+//        if (width <= 0 || height <= 0) return;
+//        float a = ((argb >> 24) & 0xFF) / 255f;
+//        float r = ((argb >> 16) & 0xFF) / 255f;
+//        float g = ((argb >> 8)  & 0xFF) / 255f;
+//        float b = ( argb        & 0xFF) / 255f;
+//        RenderSystem.setShaderColor(r, g, b, a);
+//        context.blitSprite(sprite, x, y, width, height);
+//        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+//    }
     public static void renderNineSliceColored(GuiGraphics context, ResourceLocation sprite,
-                                               int x, int y, int width, int height, int argb) {
+                                              int x, int y, int width, int height, int argb) {
         if (width <= 0 || height <= 0) return;
         float a = ((argb >> 24) & 0xFF) / 255f;
         float r = ((argb >> 16) & 0xFF) / 255f;
         float g = ((argb >> 8)  & 0xFF) / 255f;
         float b = ( argb        & 0xFF) / 255f;
         RenderSystem.setShaderColor(r, g, b, a);
-        context.blitSprite(sprite, x, y, width, height);
+        ResourceLocation texturePath = ResourceLocation.fromNamespaceAndPath(
+                sprite.getNamespace(), "textures/" + sprite.getPath() + ".png");
+        context.blit(texturePath, x, y, 0, 0, width, height, width, height);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
 
@@ -218,12 +244,7 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
      */
     public static void drawOutlinedText(GuiGraphics context, Component text, int x, int y, int color) {
         Font font = Minecraft.getInstance().font;
-        int outline = 0xFF000000;
-        context.drawString(font, text, x - 1, y,     outline, false);
-        context.drawString(font, text, x + 1, y,     outline, false);
-        context.drawString(font, text, x,     y - 1, outline, false);
-        context.drawString(font, text, x,     y + 1, outline, false);
-        context.drawString(font, text, x,     y,     color,   false);
+        context.drawString(font, text, x, y, color, true); // true = draw with shadow
     }
 
     public void renderCursor(GuiGraphics context, int mouseX, int mouseY, float delta) {

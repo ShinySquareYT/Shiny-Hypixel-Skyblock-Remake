@@ -5,6 +5,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
@@ -32,6 +33,7 @@ import net.shinysquare.shiny_sb.content.utils.Utils;
  * bars always have a baseline value even if no ability system has run yet.
  * Any explicit setter call overrides these auto-synced values for that tick.
  */
+@EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, value = Dist.CLIENT)
 public class StatusBarTracker {
 
     // ── Internal state ────────────────────────────────────────────────────────

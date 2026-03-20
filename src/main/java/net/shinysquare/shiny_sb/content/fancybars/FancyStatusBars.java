@@ -17,6 +17,7 @@ import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -52,6 +53,7 @@ import java.util.concurrent.Executors;
  * The config screen (/shsbm bars) still exists so players can reposition, resize,
  * and recolor individual bars — it just no longer controls whether bars show at all.
  */
+@EventBusSubscriber(modid = ShinysHypixelSBRemake.MOD_ID, value = Dist.CLIENT)
 public class FancyStatusBars {
 
     private static final ResourceLocation HUD_LAYER =
@@ -123,11 +125,14 @@ public class FancyStatusBars {
      */
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        LOGGER.info("[shsbm] registerGuiLayers fired");
         event.registerAbove(VanillaGuiLayers.HOTBAR, HUD_LAYER, (guiGraphics, deltaTracker) -> {
+//            guiGraphics.fill(0, 0, 100, 10, 0xFFFF0000);
             if (configLoaded && !hasUpdatedPositions) {
                 updatePositions(true);
                 hasUpdatedPositions = true;
             }
+            
             render(guiGraphics, Minecraft.getInstance());
         });
     }

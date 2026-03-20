@@ -1,0 +1,27 @@
+{
+  "sources": [
+    { "type": "single", "resource": "shiny_sb:bars/bar_fill" },
+    { "type": "single", "resource": "shiny_sb:bars/bar_back" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/health" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/intelligence" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/defense" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/experience" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/speed" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/air" },
+    { "type": "single", "resource": "shiny_sb:bars/icons/rift_time" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/container" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/mana_full" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/mana_half" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_full" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_half" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_dark_full" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_dark_half" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/container_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/mana_full_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/mana_half_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_full_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_half_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_dark_full_blink" },
+    { "type": "single", "resource": "shiny_sb:bars/vanilla_mana/overflow_dark_half_blink" }
+  ]
+}
