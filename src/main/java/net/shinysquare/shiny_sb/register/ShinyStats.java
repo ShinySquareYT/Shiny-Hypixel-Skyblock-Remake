@@ -222,76 +222,115 @@ public class ShinyStats {
     // ── FINAL(crop)FORTUNE — all crops ───────────────────────────────────────────
 
     public static final StatDefinition
-    FINALWHEATFORTUNE = StatDefinition.of("FinalWheatFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLWHEATFORTUNE) + ctx.total(BONUSLOGARITHMWHEATFORTUNE) +
-                    ctx.total(BONUSACCWHEATFORTUNE) + ctx.total(BONUSENCHANTWHEATFORTUNE) +
-                    ctx.total(BONUSANITAPERSONALBESTSWHEATFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISWHEATFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSWHEATFORTUNE) + ctx.total(BONUSANITATALISMANSWHEATFORTUNE)),
+            FINALWHEATFORTUNE = StatDefinition.of("FinalWheatFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLWHEATFORTUNE) + ctx.total(BONUSLOGARITHMWHEATFORTUNE) +
+                            ctx.total(BONUSACCWHEATFORTUNE) + ctx.total(BONUSENCHANTWHEATFORTUNE) +
+                            ctx.total(BONUSANITAPERSONALBESTSWHEATFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISWHEATFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSWHEATFORTUNE) + ctx.total(BONUSANITATALISMANSWHEATFORTUNE)),
 
-    FINALCARROTFORTUNE = StatDefinition.of("FinalCarrotFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLCARROTFORTUNE) + ctx.total(BONUSLOGARITHMCARROTFORTUNE) +
-                    ctx.total(BONUSACCCARROTFORTUNE) + ctx.total(BONUSENCHANTCARROTFORTUNE) +
-                    ctx.total(BONUSANITAPERSONALBESTSCARROTFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISCARROTFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSCARROTFORTUNE) + ctx.total(BONUSANITATALISMANSCARROTFORTUNE)),
+            FINALCARROTFORTUNE = StatDefinition.of("FinalCarrotFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLCARROTFORTUNE) + ctx.total(BONUSLOGARITHMCARROTFORTUNE) +
+                            ctx.total(BONUSACCCARROTFORTUNE) + ctx.total(BONUSENCHANTCARROTFORTUNE) +
+                            ctx.total(BONUSANITAPERSONALBESTSCARROTFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISCARROTFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSCARROTFORTUNE) + ctx.total(BONUSANITATALISMANSCARROTFORTUNE)),
 
-    FINALPOTATOFORTUNE = StatDefinition.of("FinalPotatoFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLPOTATOFORTUNE) + ctx.total(BONUSLOGARITHMPOTATOFORTUNE) +
-                    ctx.total(BONUSACCPOTATOFORTUNE) + ctx.total(BONUSENCHANTPOTATOFORTUNE) +
-                    ctx.total(BONUSANITAPERSONALBESTSPOTATOFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISPOTATOFORTUNE) +
-                    ctx.total(BONUSANITATALISMANSPOTATOFORTUNE)),
+            FINALPOTATOFORTUNE = StatDefinition.of("FinalPotatoFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLPOTATOFORTUNE) + ctx.total(BONUSLOGARITHMPOTATOFORTUNE) +
+                            ctx.total(BONUSACCPOTATOFORTUNE) + ctx.total(BONUSENCHANTPOTATOFORTUNE) +
+                            ctx.total(BONUSANITAPERSONALBESTSPOTATOFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISPOTATOFORTUNE) +
+                            ctx.total(BONUSANITATALISMANSPOTATOFORTUNE)),
 
-    FINALPUMPKINFORTUNE = StatDefinition.of("FinalPumpkinFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLPUMPKINFORTUNE) + ctx.total(BONUSACCPUMPKINFORTUNE) +
-                    ctx.total(BONUSENCHANTPUMPKINFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSPUMPKINFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSPUMPKINFORTUNE) + ctx.total(BONUSANITASMANSISMSPLANSPUMPKINFORTUNE)),
+            FINALPUMPKINFORTUNE = StatDefinition.of("FinalPumpkinFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLPUMPKINFORTUNE) + ctx.total(BONUSACCPUMPKINFORTUNE) +
+                            ctx.total(BONUSENCHANTPUMPKINFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSPUMPKINFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSPUMPKINFORTUNE) + ctx.total(BONUSANITASMANSISMSPLANSPUMPKINFORTUNE)),
 
-    FINALSUGARCANEFORTUNE = StatDefinition.of("FinalSugarCaneFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLSUGARCANEFORTUNE) + ctx.total(BONUSLOGARITHMSUGARCANEFORTUNE) +
-                    ctx.total(BONUSACCSUGARCANEFORTUNE) + ctx.total(BONUSENCHANTSUGARCANEFORTUNE) +
-                    ctx.total(BONUSANITAPERSONALBESTSSUGARCANEFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISSUGARCANEFORTUNE) +
-                    ctx.total(BONUSANITATASLISMANSSUGARCANEFORTUNE)),
+            FINALSUGARCANEFORTUNE = StatDefinition.of("FinalSugarCaneFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLSUGARCANEFORTUNE) + ctx.total(BONUSLOGARITHMSUGARCANEFORTUNE) +
+                            ctx.total(BONUSACCSUGARCANEFORTUNE) + ctx.total(BONUSENCHANTSUGARCANEFORTUNE) +
+                            ctx.total(BONUSANITAPERSONALBESTSSUGARCANEFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISSUGARCANEFORTUNE) +
+                            ctx.total(BONUSANITATASLISMANSSUGARCANEFORTUNE)),
 
-    FINALMELONSLICEFORTUNE = StatDefinition.of("FinalMelonSliceFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLMELONSLICEFORTUNE) + ctx.total(BONUSACCMELONSLICEFORTUNE) +
-                    ctx.total(BONUSENCHANTMELONSLICEFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMELONSLICEFORTUNE) +
-                    ctx.total(BONUSANITATALISMANSMELONSLICEFORTUNE)),
+            FINALMELONSLICEFORTUNE = StatDefinition.of("FinalMelonSliceFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLMELONSLICEFORTUNE) + ctx.total(BONUSACCMELONSLICEFORTUNE) +
+                            ctx.total(BONUSENCHANTMELONSLICEFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMELONSLICEFORTUNE) +
+                            ctx.total(BONUSANITATALISMANSMELONSLICEFORTUNE)),
 
-    FINALCACTUSFORTUNE = StatDefinition.of("FinalCactusFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLCACTUSFORTUNE) + ctx.total(BONUSACCCACTUSFORTUNE) +
-                    ctx.total(BONUSENCHANTCACTUSFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSCACTUSFORTUNE) +
-                    ctx.total(BONUSANITATASLISMANSCACTUSFORTUNE)),
+            FINALCACTUSFORTUNE = StatDefinition.of("FinalCactusFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLCACTUSFORTUNE) + ctx.total(BONUSACCCACTUSFORTUNE) +
+                            ctx.total(BONUSENCHANTCACTUSFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSCACTUSFORTUNE) +
+                            ctx.total(BONUSANITATASLISMANSCACTUSFORTUNE)),
 
-    FINALCOCOABEANSFORTUNE = StatDefinition.of("FinalCocoaBeansFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLCOCOABEANSFORTUNE) + ctx.total(BONUSACCCOCOABEANSFORTUNE) +
-                    ctx.total(BONUSENCHANTCOCOABEANSFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSCOCOABEANSFORTUNE) +
-                    ctx.total(BONUSCHOCOLATECOCOABEANSFORTUNE) + ctx.total(BONUSCARROYLNEXPORTABLECROPSCOCOABEANSFORTUNE) +
-                    ctx.total(BONUSANITATALISMANSCOCOABEANSFORTUNE)),
+            FINALCOCOABEANSFORTUNE = StatDefinition.of("FinalCocoaBeansFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLCOCOABEANSFORTUNE) + ctx.total(BONUSACCCOCOABEANSFORTUNE) +
+                            ctx.total(BONUSENCHANTCOCOABEANSFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSCOCOABEANSFORTUNE) +
+                            ctx.total(BONUSCHOCOLATECOCOABEANSFORTUNE) + ctx.total(BONUSCARROYLNEXPORTABLECROPSCOCOABEANSFORTUNE) +
+                            ctx.total(BONUSANITATALISMANSCOCOABEANSFORTUNE)),
 
-    FINALMUSHROOMFORTUNE = StatDefinition.of("FinalMushroomFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLMUSHROOMFORTUNE) + ctx.total(BONUSACCMUSHROOMFORTUNE) +
-                    ctx.total(BONUSENCHANTMUSHROOMFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMUSHROOMFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSMUSHROOMFORTUNE) + ctx.total(BONUSANITATALISMANSMUSHROOMFORTUNE)),
+            FINALMUSHROOMFORTUNE = StatDefinition.of("FinalMushroomFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLMUSHROOMFORTUNE) + ctx.total(BONUSACCMUSHROOMFORTUNE) +
+                            ctx.total(BONUSENCHANTMUSHROOMFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMUSHROOMFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSMUSHROOMFORTUNE) + ctx.total(BONUSANITATALISMANSMUSHROOMFORTUNE)),
 
-    FINALNETHERWARTFORTUNE = StatDefinition.of("FinalNetherWartFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLNETHERWARTFORTUNE) + ctx.total(BONUSLOGARITHMNETHERWARTFORTUNE) +
-                    ctx.total(BONUSACCNETHERWARTFORTUNE) + ctx.total(BONUSENCHANTNETHERWARTFORTUNE) +
-                    ctx.total(BONUSANITAPERSONALBESTSNETHERWARTFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISNETHERWARTFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSNETHERWARTFORTUNE) + ctx.total(BONUSANITATASLISMANSNETHERWARTFORTUNE)),
+            FINALNETHERWARTFORTUNE = StatDefinition.of("FinalNetherWartFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLNETHERWARTFORTUNE) + ctx.total(BONUSLOGARITHMNETHERWARTFORTUNE) +
+                            ctx.total(BONUSACCNETHERWARTFORTUNE) + ctx.total(BONUSENCHANTNETHERWARTFORTUNE) +
+                            ctx.total(BONUSANITAPERSONALBESTSNETHERWARTFORTUNE) + ctx.total(BONUSCOLLECTIONANALYSISNETHERWARTFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSNETHERWARTFORTUNE) + ctx.total(BONUSANITATASLISMANSNETHERWARTFORTUNE)),
 
-    FINALSUNFLOWERFORTUNE = StatDefinition.of("FinalSunflowerFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLSUNFLOWERFORTUNE) + ctx.total(BONUSACCSUNFLOWERFORTUNE) +
-                    ctx.total(BONUSENCHANTSUNFLOWERFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSSUNFLOWERFORTUNE) +
-                    ctx.total(BONUSANITATASLISMANSSUNFLOWERFORTUNE)),
+            FINALSUNFLOWERFORTUNE = StatDefinition.of("FinalSunflowerFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLSUNFLOWERFORTUNE) + ctx.total(BONUSACCSUNFLOWERFORTUNE) +
+                            ctx.total(BONUSENCHANTSUNFLOWERFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSSUNFLOWERFORTUNE) +
+                            ctx.total(BONUSANITATASLISMANSSUNFLOWERFORTUNE)),
 
-    FINALMOONFLOWERFORTUNE = StatDefinition.of("FinalMoonflowerFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLMOONFLOWERFORTUNE) + ctx.total(BONUSACCMOONFLOWERFORTUNE) +
-                    ctx.total(BONUSENCHANTMOONFLOWERFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMOONFLOWERFORTUNE) +
-                    ctx.total(BONUSANITATASLISMANSMOONFLOWERFORTUNE)),
+            FINALMOONFLOWERFORTUNE = StatDefinition.of("FinalMoonflowerFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLMOONFLOWERFORTUNE) + ctx.total(BONUSACCMOONFLOWERFORTUNE) +
+                            ctx.total(BONUSENCHANTMOONFLOWERFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSMOONFLOWERFORTUNE) +
+                            ctx.total(BONUSANITATASLISMANSMOONFLOWERFORTUNE)),
 
-    FINALWILDROSEFORTUNE = StatDefinition.of("FinalWildRoseFortune", ctx -> 0, (base, ctx) ->
-            ctx.total(BONUSTOOLWILDROSEFORTUNE) + ctx.total(BONUSACCWILDROSEFORTUNE) +
-                    ctx.total(BONUSENCHANTWILDROSEFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSWILDROSEFORTUNE) +
-                    ctx.total(BONUSCARROYLNEXPORTABLECROPSWILDROSEFORTUNE) + ctx.total(BONUSANITATASLISMANSWILDROSEFORTUNE));
+            FINALWILDROSEFORTUNE = StatDefinition.of("FinalWildRoseFortune", ctx -> 0, (base, ctx) ->
+                    ctx.total(BONUSTOOLWILDROSEFORTUNE) + ctx.total(BONUSACCWILDROSEFORTUNE) +
+                            ctx.total(BONUSENCHANTWILDROSEFORTUNE) + ctx.total(BONUSANITAPERSONALBESTSWILDROSEFORTUNE) +
+                            ctx.total(BONUSCARROYLNEXPORTABLECROPSWILDROSEFORTUNE) + ctx.total(BONUSANITATASLISMANSWILDROSEFORTUNE));
+
+    // ── Fishing Speed ─────────────────────────────────────────────────────────────
+
+    public static final StatDefinition
+            BASEFISHINGSPEED                    = StatDefinition.of("BaseFishingSpeed",                    ctx -> 0, (base, ctx) -> 0),
+            BONUSPETSFISHINGSPEED               = StatDefinition.of("BonusPetsFishingSpeed",               ctx -> 0, (base, ctx) -> 0),
+            BONUSACCFISHINGSPEED                = StatDefinition.of("BonusACCFishingSpeed",                ctx -> 0, (base, ctx) -> 0),
+            BONUSEQUIPMENTFISHINGSPEED          = StatDefinition.of("BonusEquipmentFishingSpeed",          ctx -> 0, (base, ctx) -> 0),
+            BONUSRODFISHINGSPEED                = StatDefinition.of("BonusRodFishingSpeed",                ctx -> 0, (base, ctx) -> 0),
+            BONUSBAITFISHINGSPEED               = StatDefinition.of("BonusBaitFishingSpeed",               ctx -> 0, (base, ctx) -> 0),
+            BONUSREFORGEFISHINGSPEED            = StatDefinition.of("BonusReforgeFishingSpeed",            ctx -> 0, (base, ctx) -> 0),
+            BONUSENCHANTFISHINGSPEED            = StatDefinition.of("BonusEnchantFishingSpeed",            ctx -> 0, (base, ctx) -> 0),
+            BONUSATTRIBUTESFISHINGSPEED         = StatDefinition.of("BonusAttributesFishingSpeed",         ctx -> 0, (base, ctx) -> 0),
+            BONUSBOBBINTIMEFISHINGSPEED         = StatDefinition.of("BonusBobberTimeFishingSpeed",         ctx -> 0, (base, ctx) -> 0),
+            BONUSSPIDERDENRAINFISHINGSPEED      = StatDefinition.of("BonusSpiderDenRainFishingSpeed",      ctx -> 0, (base, ctx) -> 0),
+            BONUSPETITEMFISHINGSPEED            = StatDefinition.of("BonusPetItemFishingSpeed",            ctx -> 0, (base, ctx) -> 0),
+            BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED = StatDefinition.of("BonusEmptyChumCapBucketFishingSpeed", ctx -> 0, (base, ctx) -> 0),
+            BONUSCORRUPTBAITFISHINGSPEED        = StatDefinition.of("BonusCorruptBaitFishingSpeed",        ctx -> 0, (base, ctx) -> 0),
+
+    FINALFISHINGSPEED = StatDefinition.of("FinalFishingSpeed", ctx -> 0, (base, ctx) -> {
+        int sum = ctx.total(BASEFISHINGSPEED)                    +
+                  ctx.total(BONUSPETSFISHINGSPEED)               +
+                  ctx.total(BONUSACCFISHINGSPEED)                +
+                  ctx.total(BONUSEQUIPMENTFISHINGSPEED)          +
+                  ctx.total(BONUSRODFISHINGSPEED)                +
+                  ctx.total(BONUSBAITFISHINGSPEED)               +
+                  ctx.total(BONUSREFORGEFISHINGSPEED)            +
+                  ctx.total(BONUSENCHANTFISHINGSPEED)            +
+                  ctx.total(BONUSATTRIBUTESFISHINGSPEED)         +
+                  ctx.total(BONUSSPIDERDENRAINFISHINGSPEED)      +
+                  ctx.total(BONUSPETITEMFISHINGSPEED)            +
+                  ctx.total(BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED);
+        double bobbin  = ctx.total(BONUSBOBBINTIMEFISHINGSPEED);
+        double corrupt = ctx.total(BONUSCORRUPTBAITFISHINGSPEED);
+        double divisor = corrupt == 0 ? 1 : corrupt;
+        return (int) (sum * (1.0 + bobbin / 100.0) / divisor);
+    });
+
+
 
     // ── ALL ───────────────────────────────────────────────────────────────────
 
@@ -366,7 +405,14 @@ public class ShinyStats {
             FINALPUMPKINFORTUNE, FINALSUGARCANEFORTUNE, FINALMELONSLICEFORTUNE,
             FINALCACTUSFORTUNE, FINALCOCOABEANSFORTUNE, FINALMUSHROOMFORTUNE,
             FINALNETHERWARTFORTUNE, FINALSUNFLOWERFORTUNE,
-            FINALMOONFLOWERFORTUNE, FINALWILDROSEFORTUNE
+            FINALMOONFLOWERFORTUNE, FINALWILDROSEFORTUNE,
+            // Fishing Speed
+            BASEFISHINGSPEED, BONUSPETSFISHINGSPEED, BONUSACCFISHINGSPEED,
+            BONUSEQUIPMENTFISHINGSPEED, BONUSRODFISHINGSPEED, BONUSBAITFISHINGSPEED,
+            BONUSREFORGEFISHINGSPEED, BONUSENCHANTFISHINGSPEED, BONUSATTRIBUTESFISHINGSPEED,
+            BONUSBOBBINTIMEFISHINGSPEED, BONUSSPIDERDENRAINFISHINGSPEED, BONUSPETITEMFISHINGSPEED,
+            BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED, BONUSCORRUPTBAITFISHINGSPEED,
+            FINALFISHINGSPEED
     };
 
     // ── updateAll ─────────────────────────────────────────────────────────────
