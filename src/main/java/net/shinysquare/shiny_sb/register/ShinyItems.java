@@ -12,3 +12,4 @@ public class ShinyItems {
     public static void register() {
     }
 }
+

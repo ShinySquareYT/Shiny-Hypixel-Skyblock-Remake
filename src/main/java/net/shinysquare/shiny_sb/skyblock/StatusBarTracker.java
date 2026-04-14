@@ -9,6 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.shinysquare.shiny_sb.ShinysHypixelSBRemake;
+import net.shinysquare.shiny_sb.register.ShinyStats;
 import net.shinysquare.shiny_sb.register.ShsbmAttributes;
 import net.shinysquare.shiny_sb.content.utils.Utils;
 
@@ -82,34 +83,15 @@ public class StatusBarTracker {
         Player player = mc.player;
         if (player == null) return;
 
-        // --- Health ---
-        if (!healthSetThisTick) {
-            // In The Rift vanilla HP maps 1:1 (handled in FancyStatusBars.render)
-            // Outside the rift we just use vanilla HP as a fallback baseline.
-            health    = Math.round(player.getHealth());
-            maxHealth = Math.round(player.getMaxHealth());
-        }
-        healthSetThisTick = false;
+        // All stat calculations live in ShinyStats
+        ShinyStats.updateAll(player);
 
-        // --- Mana cap from attribute ---
-        if (!manaSetThisTick) {
-            // Read MAX_MANA attribute if present; fall back to stored value
-            AttributeInstance maxManaAttr = player.getAttributes().getInstance(ShsbmAttributes.MAX_MANA);
-            if (maxManaAttr != null) {
-                maxMana = (int) maxManaAttr.getValue();
-                // Clamp current mana in case the cap was lowered
-                mana = Math.min(mana, maxMana);
-            }
-        }
-        manaSetThisTick = false;
-
-        // --- Air ---
-        // Sync air from vanilla when underwater; reset when surfaced.
+        // Air still syncs from vanilla directly
         if (player.isUnderWater()) {
             air    = player.getAirSupply();
             maxAir = player.getMaxAirSupply();
         } else {
-            air    = maxAir; // full when not underwater
+            air = maxAir;
         }
     }
 

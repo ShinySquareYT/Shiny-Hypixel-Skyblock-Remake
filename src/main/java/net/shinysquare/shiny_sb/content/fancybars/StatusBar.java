@@ -180,9 +180,22 @@ public class StatusBar implements LayoutElement, Renderable, GuiEventListener, N
         float g = ((argb >> 8)  & 0xFF) / 255f;
         float b = ( argb        & 0xFF) / 255f;
         RenderSystem.setShaderColor(r, g, b, a);
+
         ResourceLocation texturePath = ResourceLocation.fromNamespaceAndPath(
                 sprite.getNamespace(), "textures/" + sprite.getPath() + ".png");
-        context.blit(texturePath, x, y, 0, 0, width, height, width, height);
+
+        // Texture is 140x7, we treat 2px on each side as fixed edges
+        int edgeSize = 2;
+        int textureWidth = 140;
+        int textureHeight = 7;
+
+        // Left edge (2px wide)
+        context.blit(texturePath, x, y, 0, 0, edgeSize, height, textureWidth, textureHeight);
+        // Right edge (2px wide)
+        context.blit(texturePath, x + width - edgeSize, y, textureWidth - edgeSize, 0, edgeSize, height, textureWidth, textureHeight);
+        // Middle (stretched between the two edges)
+        context.blit(texturePath, x + edgeSize, y, edgeSize, 0, width - edgeSize * 2, height, textureWidth, textureHeight);
+
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
 
