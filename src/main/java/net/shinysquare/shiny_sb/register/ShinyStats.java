@@ -1,10 +1,14 @@
 package net.shinysquare.shiny_sb.register;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.shinysquare.shiny_sb.skyblock.StatusBarTracker;
 import net.shinysquare.shiny_sb.content.items.ShinySBItem;
+import org.lwjgl.system.linux.Stat;
+
 import java.util.function.Function;
+import static net.shinysquare.shiny_sb.ShinysHypixelSBRemake.getRandomInt;
 
 /**
  * Central registry for all Skyblock stats.
@@ -23,7 +27,7 @@ import java.util.function.Function;
  * ctx.vanillaMaxHp()→ vanilla max HP
  */
 public class ShinyStats {
-
+    // QOL
     // ── Core stats ────────────────────────────────────────────────────────────
 
     public static final StatDefinition HEALTH = StatDefinition.of(
@@ -92,14 +96,14 @@ public class ShinyStats {
             BONUSSKILLLEVELFARMINGFORTUNE        = StatDefinition.of("BonusSkillLevelFarmingFortune",        ctx -> 0, (base, ctx) -> 0),
             FINALGLOBALFARMINGFORTUNE = StatDefinition.of("FinalGlobalFarmingFortune", ctx -> 0, (base, ctx) ->
                     ctx.total(BASEFARMINGFORTUNE) + ctx.total(GREENHOUSEFARMINGFORTUNE) +
-                            ctx.total(BONUSARMORFARMINGFORTUNE) + ctx.total(BONUSTOOLEFARMINGFORTUNE) +
-                            ctx.total(BONUSEQUIPMENTFARMINGFORTUNE) + ctx.total(BONUSENCHANTSFARMINGFORTUNE) +
-                            ctx.total(BONUSREFORGEFARMINGFORTUNE) + ctx.total(BONUSPETFARMINGFORTUNE) +
-                            ctx.total(BONUSPETITEMFARMINGFORTUNE) + ctx.total(BONUSACCFARMINGFORTUNE) +
-                            ctx.total(BONUSFARMINGFORDUMMIESFARMINGFORTUNE) + ctx.total(BONUSCAKEFARMINGFORTUNE) +
-                            ctx.total(BONUSPOTIONFARMINGFORTUNE) + ctx.total(BONUSPESTHUNTERFARMINGFORTUNE) +
-                            ctx.total(BONUSDARKCOCOAFARMINGFORTUNE) + ctx.total(BONUSREFINEDDARKCOCOAFARMINGFORTUNE) +
-                            ctx.total(BONUSROSEWATERFLASKFARMINGFORTUNE) + ctx.total(BONUSSKILLLEVELFARMINGFORTUNE));
+                    ctx.total(BONUSARMORFARMINGFORTUNE) + ctx.total(BONUSTOOLEFARMINGFORTUNE) +
+                    ctx.total(BONUSEQUIPMENTFARMINGFORTUNE) + ctx.total(BONUSENCHANTSFARMINGFORTUNE) +
+                    ctx.total(BONUSREFORGEFARMINGFORTUNE) + ctx.total(BONUSPETFARMINGFORTUNE) +
+                    ctx.total(BONUSPETITEMFARMINGFORTUNE) + ctx.total(BONUSACCFARMINGFORTUNE) +
+                    ctx.total(BONUSFARMINGFORDUMMIESFARMINGFORTUNE) + ctx.total(BONUSCAKEFARMINGFORTUNE) +
+                    ctx.total(BONUSPOTIONFARMINGFORTUNE) + ctx.total(BONUSPESTHUNTERFARMINGFORTUNE) +
+                    ctx.total(BONUSDARKCOCOAFARMINGFORTUNE) + ctx.total(BONUSREFINEDDARKCOCOAFARMINGFORTUNE) +
+                    ctx.total(BONUSROSEWATERFLASKFARMINGFORTUNE) + ctx.total(BONUSSKILLLEVELFARMINGFORTUNE));
     // ── BONUSTOOL(crop)FORTUNE — all crops ───────────────────────────────────
 
     public static final StatDefinition
@@ -310,27 +314,67 @@ public class ShinyStats {
             BONUSPETITEMFISHINGSPEED            = StatDefinition.of("BonusPetItemFishingSpeed",            ctx -> 0, (base, ctx) -> 0),
             BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED = StatDefinition.of("BonusEmptyChumCapBucketFishingSpeed", ctx -> 0, (base, ctx) -> 0),
             BONUSCORRUPTBAITFISHINGSPEED        = StatDefinition.of("BonusCorruptBaitFishingSpeed",        ctx -> 0, (base, ctx) -> 0),
+            BONUSLURECATCHTIMEREDUCTION         = StatDefinition.of("BonusLureCatchTimeReducion",          ctx -> 0, (base, ctx) -> 0),
+            BONUSPOTIONFISHINGSPEED             = StatDefinition.of("BonusPotionFishingSpeed",             ctx -> 0, (base, ctx) -> 0),
 
-    FINALFISHINGSPEED = StatDefinition.of("FinalFishingSpeed", ctx -> 0, (base, ctx) -> {
-        int sum = ctx.total(BASEFISHINGSPEED)                    +
-                  ctx.total(BONUSPETSFISHINGSPEED)               +
-                  ctx.total(BONUSACCFISHINGSPEED)                +
-                  ctx.total(BONUSEQUIPMENTFISHINGSPEED)          +
-                  ctx.total(BONUSRODFISHINGSPEED)                +
-                  ctx.total(BONUSBAITFISHINGSPEED)               +
-                  ctx.total(BONUSREFORGEFISHINGSPEED)            +
-                  ctx.total(BONUSENCHANTFISHINGSPEED)            +
-                  ctx.total(BONUSATTRIBUTESFISHINGSPEED)         +
-                  ctx.total(BONUSSPIDERDENRAINFISHINGSPEED)      +
-                  ctx.total(BONUSPETITEMFISHINGSPEED)            +
-                  ctx.total(BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED);
-        double bobbin  = ctx.total(BONUSBOBBINTIMEFISHINGSPEED);
-        double corrupt = ctx.total(BONUSCORRUPTBAITFISHINGSPEED);
-        double divisor = corrupt == 0 ? 1 : corrupt;
-        return (int) (sum * (1.0 + bobbin / 100.0) / divisor);
-    });
+            FINALFISHINGSPEED = StatDefinition.of("FinalFishingSpeed", ctx -> 0, (base, ctx) -> {
+                int sum = ctx.total(BASEFISHINGSPEED)                    +
+                          ctx.total(BONUSPETSFISHINGSPEED)               +
+                          ctx.total(BONUSACCFISHINGSPEED)                +
+                          ctx.total(BONUSEQUIPMENTFISHINGSPEED)          +
+                          ctx.total(BONUSRODFISHINGSPEED)                +
+                          ctx.total(BONUSBAITFISHINGSPEED)               +
+                          ctx.total(BONUSREFORGEFISHINGSPEED)            +
+                          ctx.total(BONUSENCHANTFISHINGSPEED)            +
+                          ctx.total(BONUSATTRIBUTESFISHINGSPEED)         +
+                          ctx.total(BONUSSPIDERDENRAINFISHINGSPEED)      +
+                          ctx.total(BONUSPETITEMFISHINGSPEED)            +
+                          ctx.total(BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED) +
+                          ctx.total(BONUSPOTIONFISHINGSPEED);
+                double bobbin  = ctx.total(BONUSBOBBINTIMEFISHINGSPEED);
+                double corrupt = ctx.total(BONUSCORRUPTBAITFISHINGSPEED);
+                double divisor = corrupt == 0 ? 1 : corrupt;
+                return (int) (sum * (1.0 + bobbin / 100.0) / divisor);
+            });
+    public static final boolean tmpIsleTf = false ? true : false;
+    public static final int fishingSpeedCap = tmpIsleTf ? 350 : 300;
+    static StatContext ctx;
 
 
+
+    public static int getFinalFishingSpeedTicks(Player player) {
+        StatContext ctx = new StatContext(player);
+        int lureReduction = ctx.total(BONUSLURECATCHTIMEREDUCTION);
+        int baseTicks = getRandomInt(200, 400 - 200 * lureReduction);
+        int fishingSpeed = ctx.total(FINALFISHINGSPEED);
+        int ticks = baseTicks - (fishingSpeed * baseTicks / fishingSpeedCap);
+        return ticks;
+    }
+
+    public static float getFinalFishingSpeedSeconds(Player player) {
+        return getFinalFishingSpeedTicks(player) / 20f;
+    }
+
+    // ── Sea Creature Chance ───────────────────────────────────────────────────────
+
+    public static final StatDefinition
+            BASESEACREATURECHANCE                       = StatDefinition.of("BaseSeaCreatureChance",                       ctx -> 20, (base, ctx) -> 20),
+            BONUSARMORSEACREATURECHANCE                 = StatDefinition.of("BonusArmorSeaCreatureChance",                 ctx -> 0, (base, ctx) -> 0),
+            BONUSEQUIPMENTSEACREATURECHANCE             = StatDefinition.of("BonusEquipmentSeaCreatureChance",             ctx -> 0, (base, ctx) -> 0),
+            BONUSBAITSEACREATURECHANCE                  = StatDefinition.of("BonusBaitSeaCreatureChance",                  ctx -> 0, (base, ctx) -> 0),
+            BONUSENCHANTSSEACREATURECHANCE              = StatDefinition.of("BonusEnchantsSeaCreatureChance",              ctx -> 0, (base, ctx) -> 0),
+            BONUSFISHINGRODSEACREATURECHANCE            = StatDefinition.of("BonusFishingRodSeaCreatureChance",            ctx -> 0, (base, ctx) -> 0),
+            BONUSPETSEACREATURECHANCE                   = StatDefinition.of("BonusPetSeaCreatureChance",                   ctx -> 0, (base, ctx) -> 0),
+            BONUSPETITEMSEACREATURECHANCE               = StatDefinition.of("BonusPetItemSeaCreatureChance",               ctx -> 0, (base, ctx) -> 0),
+            BONUSREFORGESEACREATURECHANCE               = StatDefinition.of("BonusReforgeSeaCreatureChance",               ctx -> 0, (base, ctx) -> 0),
+            BONUSMAYORSEACREATURECHANCE                 = StatDefinition.of("BonusMayorSeaCreatureChance",                 ctx -> 0, (base, ctx) -> 0),
+            BONUSCAKESEACREATURECHANCE                  = StatDefinition.of("BonusCakeSeaCreatureChance",                  ctx -> 0, (base, ctx) -> 0),
+            BONUSBEACONSEACREATURECHANCE                = StatDefinition.of("BonusBeaconSeaCreatureChance",                ctx -> 0, (base, ctx) -> 0),
+            BONUSSTRANDEDISLANDBIMESEACREATURECHANCE    = StatDefinition.of("BonusStrandedIslandBiomeSeaCreatureChance",   ctx -> 0, (base, ctx) -> 0),
+            BONUSSSCENRICHMENTSEACREATURECHANCE         = StatDefinition.of("BonusSSCEnrichmentSeaCreatureChance",         ctx -> 0, (base, ctx) -> 0),
+            BONUSTHUNDERSTORMSEACREATURECHANCE          = StatDefinition.of("BonusThunderstormSeaCreatureChance",          ctx -> 0, (base, ctx) -> 0),
+            BONUSBOBBINTIMESEACREATURECHANCE            = StatDefinition.of("BonusThunderstormSeaCreatureChance",          ctx -> 0, (base, ctx) -> 0),
+            FINALSEACREATURECHANCE                      = StatDefinition.of("FinalSeaCreatureChance",                      ctx -> 0, (base, ctx) -> 0);
 
     // ── ALL ───────────────────────────────────────────────────────────────────
 
@@ -411,8 +455,15 @@ public class ShinyStats {
             BONUSEQUIPMENTFISHINGSPEED, BONUSRODFISHINGSPEED, BONUSBAITFISHINGSPEED,
             BONUSREFORGEFISHINGSPEED, BONUSENCHANTFISHINGSPEED, BONUSATTRIBUTESFISHINGSPEED,
             BONUSBOBBINTIMEFISHINGSPEED, BONUSSPIDERDENRAINFISHINGSPEED, BONUSPETITEMFISHINGSPEED,
-            BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED, BONUSCORRUPTBAITFISHINGSPEED,
-            FINALFISHINGSPEED
+            BONUSEMPTYCHUMCAPBUCKETFISHINGSPEED, BONUSCORRUPTBAITFISHINGSPEED, BONUSLURECATCHTIMEREDUCTION,
+            BONUSPOTIONFISHINGSPEED, FINALFISHINGSPEED,
+            // Sea Creature Chance
+            BASESEACREATURECHANCE, BONUSARMORSEACREATURECHANCE, BONUSEQUIPMENTSEACREATURECHANCE,
+            BONUSBAITSEACREATURECHANCE, BONUSENCHANTSSEACREATURECHANCE, BONUSFISHINGRODSEACREATURECHANCE,
+            BONUSPETSEACREATURECHANCE, BONUSPETITEMSEACREATURECHANCE, BONUSREFORGESEACREATURECHANCE,
+            BONUSMAYORSEACREATURECHANCE, BONUSCAKESEACREATURECHANCE, BONUSBEACONSEACREATURECHANCE,
+            BONUSSTRANDEDISLANDBIMESEACREATURECHANCE, BONUSSSCENRICHMENTSEACREATURECHANCE,
+            BONUSTHUNDERSTORMSEACREATURECHANCE, BONUSBOBBINTIMESEACREATURECHANCE, FINALSEACREATURECHANCE
     };
 
     // ── updateAll ─────────────────────────────────────────────────────────────

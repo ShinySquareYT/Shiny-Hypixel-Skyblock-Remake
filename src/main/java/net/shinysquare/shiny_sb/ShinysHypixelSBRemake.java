@@ -1,9 +1,13 @@
 package net.shinysquare.shiny_sb;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.shinysquare.shiny_sb.content.utils.ShinyRegistry;
 import net.shinysquare.shiny_sb.register.ShinyBlocks;
 import net.shinysquare.shiny_sb.register.ShinyItems;
+import net.shinysquare.shiny_sb.register.ShinyStats;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -19,6 +23,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static net.shinysquare.shiny_sb.register.ShinyCreativeModeTabs.BASE_TAB;
 
@@ -46,6 +52,7 @@ public class ShinysHypixelSBRemake {
         NeoForge.EVENT_BUS.register(this);
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
+
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -60,4 +67,9 @@ public class ShinysHypixelSBRemake {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
+    public static int getRandomInt(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
 }
